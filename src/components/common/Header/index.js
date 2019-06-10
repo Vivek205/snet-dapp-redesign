@@ -91,7 +91,7 @@ function Header() {
             </a>
           </h1>
         </Grid>
-        <Grid item xs={6} sm={6} md={6} lg={6} className="navigations">
+        <Grid item xs={6} sm={6} md={6} lg={6}>
           <nav>
             <ul className={classes.navUl}>
               <li className={classes.navLinks}>
@@ -109,7 +109,7 @@ function Header() {
             </ul>
           </nav>
         </Grid>
-        <Grid item xs={3} sm={3} md={3} lg={3} className="login-btns">
+        <Grid item xs={3} sm={3} md={3} lg={3}>
           <ul className={classes.loginBtnsUl}>
             <li className={classes.loginBtnsLi}>
               <a href="#" title="Login" className={classes.loginBtnsAnchor}>Login</a>

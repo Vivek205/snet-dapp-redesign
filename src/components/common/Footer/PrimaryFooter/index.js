@@ -1,10 +1,14 @@
 import React, { Component } from 'react';
 
+// import components
 import FooterLinks from './FooterLinks/index.js';
 
 // Material UI imports
 import { makeStyles } from '@material-ui/styles';
 import Grid from '@material-ui/core/Grid';
+
+// import Images
+import Logo from '../../../../assets/images/Logo.png';
 
 const useStyles = makeStyles(theme => ({
 	PrimaryFooter: {
@@ -19,7 +23,7 @@ const useStyles = makeStyles(theme => ({
 		textAlign: 'right',
 		borderRightWidth: 1,
 		borderRightStyle: 'solid',
-		padding: '35px 35px 15px 0',
+		padding: '15px 35px 15px 0',
 		margin: 0,
 	},
 	footerLinks: {
@@ -39,7 +43,7 @@ function PrimaryFooter () {
       <ul className={classes.footerLogoSection}>
       	<li className={classes.footerLinks}>
         	<a href="#" title="SingularityNET">
-          	<img src="http://placehold.it/200x60" alt="SingularityNET" className={classes.footerLogoIcon} />
+          	<img src={Logo} alt="SingularityNET" className={classes.footerLogoIcon} />
         	</a>       
         </li>
       	<li className={classes.footerLinks}><a href="#" className={classes.footerLinkText} title="Contact Us">Contact Us</a></li>

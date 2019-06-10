@@ -4,6 +4,9 @@ import React, { Component } from 'react';
 import { makeStyles } from '@material-ui/styles';
 import Grid from '@material-ui/core/Grid';
 
+// import Images
+import Logo from '../../../assets/images/Logo.png';
+
 const useStyles = makeStyles(theme => ({
   header: {    
     width: '100%',
@@ -84,7 +87,7 @@ function Header() {
         <Grid item xs={3} sm={3} md={3} lg={3}>
           <h1 className={classes.h1}>
             <a href="#" title="SingularityNET" className={classes.logoAnchor}>
-              <img src="http://placehold.it/230x60" alt="SingularityNET" className={classes.logoIcon} />
+              <img src={Logo} alt="SingularityNET" className={classes.logoIcon} />
             </a>
           </h1>
         </Grid>

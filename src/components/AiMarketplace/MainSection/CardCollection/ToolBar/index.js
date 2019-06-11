@@ -12,7 +12,7 @@ const useStyles = makeStyles(theme => ({
 function ToolBar (){
 	const classes = useStyles();
   return (
-  	<StyledDropdown />
+  	null
   );
 }
 

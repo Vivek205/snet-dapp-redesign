@@ -2,7 +2,10 @@ import React, { Component } from 'react';
 
 // Material UI imports
 import { makeStyles } from '@material-ui/styles';
-import Grid from '@material-ui/core/Grid';
+
+import StyledCard from './StyledCard/index.js';
+
+import CardImg from '../../../../../assets/images/dummy-card.png';
 
 const useStyles = makeStyles(theme => ({
 }))
@@ -10,9 +13,9 @@ const useStyles = makeStyles(theme => ({
 function CardGroup (){
 	const classes = useStyles();
   return (
-  	<div>
-      <span>CardGroup</span>
-    </div>
+  	<StyledCard 
+  		cardMedia = {CardImg}
+  	/>
   );
 }
 

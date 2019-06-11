@@ -10,9 +10,7 @@ const useStyles = makeStyles(theme => ({
 function Pagination (){
 	const classes = useStyles();
   return (
-  	<div>
-      <span>Pagination</span>
-    </div>
+  	null
   );
 }
 

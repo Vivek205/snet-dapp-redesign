@@ -4,6 +4,8 @@ import React, { Component } from 'react';
 import { makeStyles } from '@material-ui/styles';
 import Grid from '@material-ui/core/Grid';
 
+import StyledDropdown from '../StyledDropdown/index.js';
+
 // import Images
 import Logo from '../../../assets/images/Logo.png';
 
@@ -77,6 +79,9 @@ const useStyles = makeStyles(theme => ({
     lineHeight: '16px',
   },
   UppercaseText: { textTransform: 'uppercase'},
+  XXX:{
+    backgroundColor: 'red'
+  }
 }));
 
 function Header() {
@@ -107,6 +112,9 @@ function Header() {
                 <a href="#" title="Resources" className={classes.navLinksAnchor}>Resources</a>
               </li>
             </ul>
+            <StyledDropdown 
+              className={classes.XXX}
+            />
           </nav>
         </Grid>
         <Grid item xs={3} sm={3} md={3} lg={3}>

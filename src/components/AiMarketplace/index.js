@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 // import components
 import Header from '../common/Header/index.js';
 import Footer from '../common/Footer/index.js';
-import BlueButton from '../common/BlueButton/index.js';
+import StyledButton from '../common/StyledButton/index.js';
 import MainSection from './MainSection/index.js';
 
 // Material UI imports
@@ -47,7 +47,8 @@ function AiMarketplace (){
   		    </Grid>
   		    <Grid item xs={12} sm={9} md={9} lg={9}>
             <p className={classes.description}>Want to find the right AI service for your project? You’ve come to the right place. <br/>We’ve got a growing marketplace with hundreds of AI services for you to utilize. <br/>They’re powered by a community of  amazing developers from all over the globe.</p>
-            <BlueButton 
+            <StyledButton 
+              type = "blue"
   				    btnText = "Sign up for free credits"
   			     />    		
   		    </Grid>

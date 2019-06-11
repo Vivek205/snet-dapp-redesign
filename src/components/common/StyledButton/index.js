@@ -2,11 +2,11 @@ import React, { Component } from 'react';
 
 // Material UI imports
 import { makeStyles } from '@material-ui/styles';
-import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
+import classNames from "classnames"
 
 const useStyles = makeStyles(theme => ({
-  blueButton: {
+  styledButton: {
     borderWidth: 1,
     borderStyle: 'solid',
     borderColor: 'transparent',
@@ -18,23 +18,35 @@ const useStyles = makeStyles(theme => ({
     fontWeight: 600,
     letterSpacing: '1.25px',
     lineHeight: '16px',
+    // '&.blueBg':{
+    //   backgroundColor: '#4086FF'
+    // },
     '&:hover':{
       backgroundColor: '#fff',
       borderWidth: 1,
       borderStyle: 'solid',
       borderColor: '#4086FF',
       color: '#4086FF'
-    }
-  }
+    }    
+  },
 }))
 
-function BlueButton (props) {
+function StyledButton (props) {
   const classes = useStyles();
   return (
-    <Button className={classes.blueButton}>
+    // <Button className={classNames('styledButton',
+    //         {blueBg: props.type == 'blue'}, 
+    //         {classTwo: props.type == 'gradient'}
+    //       )}
+    // >
+    //   {props.btnText}
+    // </Button>
+
+    <Button className={classes.styledButton}
+    >
       {props.btnText}
     </Button>
   );
 }
 
-export default BlueButton;
+export default StyledButton;

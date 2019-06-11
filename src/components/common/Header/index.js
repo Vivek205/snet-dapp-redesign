@@ -36,7 +36,7 @@ const useStyles = makeStyles(theme => ({
   navLinksAnchor: {
     textDecoration: 'none',
     fontSize: 20,
-    color: '#fff',
+    color: '#9B9B9B',
   },
   activeTab: {
     paddingBottom: 12,
@@ -44,7 +44,7 @@ const useStyles = makeStyles(theme => ({
     borderBottomWidth: '2px',
     borderBottomStyle: 'solid',
     borderBottomColor: '#fff',
-
+    color: '#fff'
   },
   loginBtnsUl: {
     margin: 0,

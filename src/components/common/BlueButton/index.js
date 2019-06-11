@@ -14,6 +14,7 @@ const useStyles = makeStyles(theme => ({
     backgroundColor: '#4086FF',
     color: '#fff',
     textTransform: 'uppercase',
+    fontFamily: 'OpenSans',
     fontWeight: 600,
     letterSpacing: '1.25px',
     lineHeight: '16px',

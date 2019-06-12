@@ -34,6 +34,12 @@ const useStyles = makeStyles(theme => ({
       borderColor: "#4086FF",
       color: "#4086FF"
     }
+  },
+  blueBg: {
+    backgroundColor: "black"
+  },
+  classTwo: {
+    backgroundColor: "orange"
   }
 }));
 
@@ -42,11 +48,13 @@ function StyledButton(props) {
 
   return (
     <>
-      <Button className={classNames("styledButton", buttonColor[props.type])}>
+      <Button
+        className={classNames("styledButton", classes[buttonColor[props.type]])}
+      >
         {props.btnText}
       </Button>
 
-      <Button className={classes.styledButton}>{props.btnText}</Button>
+      {/* <Button className={classes.styledButton}>{props.btnText}</Button> */}
     </>
   );
 }

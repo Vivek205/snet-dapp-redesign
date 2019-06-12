@@ -112,9 +112,6 @@ function Header() {
                 <a href="#" title="Resources" className={classes.navLinksAnchor}>Resources</a>
               </li>
             </ul>
-            <StyledDropdown 
-              className={classes.XXX}
-            />
           </nav>
         </Grid>
         <Grid item xs={3} sm={3} md={3} lg={3}>

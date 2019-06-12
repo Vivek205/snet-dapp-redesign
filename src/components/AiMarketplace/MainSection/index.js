@@ -9,12 +9,15 @@ import { makeStyles } from '@material-ui/styles';
 import Grid from '@material-ui/core/Grid';
 
 const useStyles = makeStyles(theme => ({
+  mainSection:{
+    padding: '40px 0 60px'
+  }
 }))
 
 function MainSection (props){
 	const classes = useStyles();
   return (
-  	<Grid container spacing={24}>
+  	<Grid container spacing={24} className={classes.mainSection}>
   		<Grid item xs={12} sm={3} md={3} lg={3}>
       	<Filter />
       </Grid>

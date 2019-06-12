@@ -17,7 +17,9 @@ import Button from '@material-ui/core/Button';
 const useStyles = makeStyles(theme => ({
   card: {
     width: 302,
-    padding: '13px 0'
+    padding: '13px 0',
+    margin: '0 20px 20px 0',
+    display: 'inline-block'
   },
   cardHeader: { 
     padding: '0 18px'
@@ -85,14 +87,14 @@ function StyledCard (props){
           title: classes.cardTitle,
           subheader: classes.cardSubheader
         }}
-  			title="Text Analysis"
-        subheader="Summarize URL"
+  			title={props.cardTitle}
+        subheader={props.cardSubheader}
       >
   		</CardHeader>
   		<CardMedia
         className={classes.CardMedia}
         image={props.cardMedia}
-        title="Summarize URL"
+        title={props.title}
       >
       </CardMedia>
   		<CardContent className={classes.cardContent}>
@@ -105,11 +107,9 @@ function StyledCard (props){
             emptyStarColor={'rgba(161,163,168,0.35)'}
             className={classes.ratingStars}
           />
-          <span className={classes.ratedCount}>3.0  (1500)</span>          
+          <span className={classes.ratedCount}>{props.ratingGiven}  {props.totalRating}</span>          
         </div>
-        <Typography className={classes.cardTypograpy} component="p">
-          This is an AI algorithm for summarizing content in webpages.  Input a URL and you will get the text summary
-        </Typography>
+        <Typography className={classes.cardTypograpy} component="p">{props.cardDescription}</Typography>
       </CardContent>
   		<CardActions className={classes.cardActions}>
          <Button color="primary" className={classes.detailsBtn}>deatils</Button>

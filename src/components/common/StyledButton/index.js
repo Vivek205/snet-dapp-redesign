@@ -47,15 +47,11 @@ function StyledButton(props) {
   const classes = useStyles();
 
   return (
-    <>
-      <Button
-        className={classNames("styledButton", classes[buttonColor[props.type]])}
-      >
-        {props.btnText}
-      </Button>
-
-      {/* <Button className={classes.styledButton}>{props.btnText}</Button> */}
-    </>
+    <Button
+      className={classNames("styledButton", classes[buttonColor[props.type]])}
+    >
+      {props.btnText}
+    </Button>
   );
 }
 

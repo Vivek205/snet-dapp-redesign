@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 
 //  material ui theme
-import { ThemeProvider } from 'material-ui/styles';
+import { ThemeProvider } from '@material-ui/styles';
 
 // components
 import AiMarketplace from './components/AiMarketplace/index.js';

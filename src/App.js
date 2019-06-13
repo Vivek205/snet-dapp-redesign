@@ -1,12 +1,16 @@
 import React, { Component } from 'react';
 import './App.css';
 
-import AiMarketplace from './components/AiMarketplace/index.js';
+// import Login from './components/Login/index.js';
+import SignUp from './components/Login/signup.js';
+// import ForgotPassword from './components/Login/forgotpassword.js';
 
 class App extends Component {
   render () {
-     return (
-        <AiMarketplace />
+    return (
+      // <Login />
+      <SignUp />
+      // <ForgotPassword />
     );
   }
 }

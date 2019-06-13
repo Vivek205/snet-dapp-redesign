@@ -81,12 +81,22 @@ const useStyles = makeStyles(theme => ({
 		fontSize: 14,
 		textTransform: 'uppercase',
 		textAlign: 'center'
-		'&:after':{
-			width: '1px',
-			height: '5px',
-			backgroundColor: 'red',
-			display: 'block'
-		}
+		'&::before': {
+      content: '" "',
+      display: 'block',
+      width: 160,
+      height: 1,
+      backgroundColor: '#F5F7F8',
+      marginRight: 10,
+    },
+    '&::after': {
+        content: '" "',
+        display: 'block',
+        width: 160,
+        height: 1,
+        marginLeft: 10,
+        backgroundColor: '#F5F7F8',
+      }
 	},
 	textField: {
 		width: '100%'
@@ -178,7 +188,13 @@ function Login() {
 			      />
 			      <div className={classes.checkboxSection}>
 			      	<div className={classes.checkbox}>
-			      		<input type="checkbox"/>
+			      		<Checkbox
+					        value="checked"
+					        color="primary"
+					        inputProps={{
+					          'aria-label': 'secondary checkbox',
+					        }}
+					      />
 			      		<label>Remember Me</label>
 			      	</div>
 			      	<a href="#" title="Forgot Password">Forgot password?</a>

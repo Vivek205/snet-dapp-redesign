@@ -4,7 +4,6 @@ import React, { Component } from 'react';
 import { makeStyles } from "@material-ui/styles";
 import Grid from '@material-ui/core/Grid';
 import TextField from '@material-ui/core/TextField';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
 
 // images
@@ -43,6 +42,9 @@ const useStyles = makeStyles(theme => ({
 	},
 	signupInfo:{
 		paddingRight: 100,
+		[theme.breakpoints.down('sm')]: {
+      paddingRight: 0,
+    },
 		'& h2':{
 			margin: 0,
 			color: 'rgba(0,0,0,0.87)',
@@ -83,7 +85,7 @@ const useStyles = makeStyles(theme => ({
 		boxSizing: 'border-box',
 		width: 410,
 		padding: '20px 20px 30px',
-		margin: '45px auto 0',
+		margin: '0 auto',
 		boxShadow: '0 1px 1px 0 rgba(0,0,0,0.14), 0 2px 1px -1px rgba(0,0,0,0.14), 0 1px 3px 0 rgba(0,0,0,0.2)',
 		'& h3':{
 			margin: 0,
@@ -120,12 +122,22 @@ const useStyles = makeStyles(theme => ({
 		fontSize: 14,
 		textTransform: 'uppercase',
 		textAlign: 'center',
-		'&:after':{
-			width: '10px',
-			height: '15px',
-			backgroundColor: 'red',
-			display: 'block'
-		}
+		'&::before': {
+      content: '" "',
+      display: 'block',
+      width: 160,
+      height: 1,
+      backgroundColor: '#F5F7F8',
+      marginRight: 10,
+    },
+    '&::after': {
+        content: '" "',
+        display: 'block',
+        width: 160,
+        height: 1,
+        marginLeft: 10,
+        backgroundColor: '#F5F7F8',
+      }
 	},
 	textField:{
 		width: '100%',
@@ -245,7 +257,7 @@ function SignUp (){
 				      />
 				      <span className={classes.charCount}>13/20 char</span>
 				     </div>				      
-				      <div>
+				     <div>
 					      <TextField
 					        id="outlined-email-input"
 					        label="Email"
@@ -271,7 +283,13 @@ function SignUp (){
 					      <span className={classes.passwordTxt}>Assistive Text</span>
 					    </div>
 				      <div className={classes.checkboxSection}>
-				      	<input type="checkbox"/>
+				      	<Checkbox
+					        value="checked"
+					        color="primary"
+					        inputProps={{
+					          'aria-label': 'secondary checkbox',
+					        }}
+					      />
 				      	<p>I agree with <a href="#" title="SingularityNET Terms of Service">SingularityNET Terms of Service</a></p>
 				      </div>
 				      <p className={classes.errorText}>error state message</p>

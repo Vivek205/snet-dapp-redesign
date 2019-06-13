@@ -1,14 +1,15 @@
-import React from "react";
-
+import React, { Component } from "react";
+import { Link } from "react-router-dom";
 // material components
-import { makeStyles } from "@material-ui/styles";
 import Grid from "@material-ui/core/Grid";
 import TextField from "@material-ui/core/TextField";
 
 // images
 import Logo from "../../assets/images/LoginLogo.png";
+import { withStyles } from "@material-ui/styles";
+import { Auth } from "aws-amplify";
 
-const useStyles = makeStyles(theme => ({
+const useStyles = theme => ({
   wrapper: {
     width: "71%",
     paddingBottom: 50,
@@ -187,128 +188,191 @@ const useStyles = makeStyles(theme => ({
     fontSize: "14px",
     textTransform: "uppercase"
   }
-}));
+});
 
-function SignUp() {
-  const classes = useStyles();
-  return (
-    <div className={classes.wrapper}>
-      <Grid container spacing={24} className={classes.loginHeader}>
-        <Grid item xs={12} sm={6} md={6} lg={6}>
-          <h1>
-            <a href="#" title="SingularityNET">
-              <img src={Logo} alt="SingularityNET" />
-            </a>
-          </h1>
+class SignUp extends Component {
+  state = {
+    username: "",
+    email: "",
+    password: "",
+    hasAcceptedTerms: false
+  };
+  handleUsername = event => {
+    this.setState({ username: event.currentTarget.value });
+  };
+  handleEmail = event => {
+    this.setState({ email: event.currentTarget.value });
+  };
+  handlePassword = event => {
+    this.setState({ password: event.currentTarget.value });
+  };
+  handleAcceptedTerms = () => {
+    this.setState(prevState => ({
+      hasAcceptedTerms: !prevState.hasAcceptedTerms
+    }));
+  };
+  handleSubmit = event => {
+    event.preventDefault();
+    event.stopPropagation();
+    const { username, password, email } = this.state;
+    Auth.signUp({
+      username,
+      password,
+      attributes: {
+        email,
+        name: username
+      }
+    })
+      .then(user => console.log("user", user))
+      .catch(err => alert(err.message));
+  };
+  shouldSubmitBeDisabled = () => {
+    const { username, email, password, hasAcceptedTerms } = this.state;
+    if ((username !== "", email !== "", password !== "", hasAcceptedTerms)) {
+      return false;
+    }
+    return true;
+  };
+  render() {
+    const { username, email, password, hasAcceptedTerms } = this.state;
+    const { classes } = this.props;
+    return (
+      <div className={classes.wrapper}>
+        <Grid container spacing={24} className={classes.loginHeader}>
+          <Grid item xs={12} sm={6} md={6} lg={6}>
+            <h1>
+              <a href="#" title="SingularityNET">
+                <img src={Logo} alt="SingularityNET" />
+              </a>
+            </h1>
+          </Grid>
+          <Grid
+            item
+            xs={12}
+            sm={6}
+            md={6}
+            lg={6}
+            className={classes.loginHeaderLink}
+          >
+            <p>
+              Already have an account? <Link to="login">Login</Link>
+            </p>
+          </Grid>
         </Grid>
-        <Grid
-          item
-          xs={12}
-          sm={6}
-          md={6}
-          lg={6}
-          className={classes.loginHeaderLink}
-        >
-          <p>
-            Already have an account?{" "}
-            <a href="#" title="Signup">
-              Login
-            </a>
-          </p>
+        <Grid container spacing={24}>
+          <Grid
+            item
+            xs={12}
+            sm={12}
+            md={6}
+            lg={6}
+            className={classes.signupInfo}
+          >
+            <h2>Sign up for your free account in minutes</h2>
+            <p>
+              Use your Github account to easily get started, or fill out the
+              form. Get free credits for the first month and continue with your
+              perferred wallet or credit card.
+            </p>
+            <ul>
+              <li>
+                <i className="fas fa-check-circle"></i>
+                <p>Built for you, powered for enterprise.</p>
+              </li>
+              <li>
+                <i className="fas fa-check-circle"></i>
+                <p>
+                  Get 100 free credits to try out any of the AI services
+                  available. Easily refill your credits anytime.
+                </p>
+              </li>
+              <li>
+                <i className="fas fa-check-circle"></i>
+                <p>
+                  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
+                  do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                </p>
+              </li>
+            </ul>
+          </Grid>
+          <Grid item xs={12} sm={12} md={6} lg={6}>
+            <form noValidate autoComplete="off" className={classes.signupForm}>
+              <h3>sign up with </h3>
+              <button className={classes.githubBtn}>
+                <i className="fab fa-github"></i>
+                github
+              </button>
+              <span className={classes.horizontalLine}>or</span>
+              <div>
+                <TextField
+                  id="outlined-user-name"
+                  label="UserName"
+                  className={classes.textField}
+                  value={username}
+                  onChange={this.handleUsername}
+                  margin="normal"
+                  variant="outlined"
+                />
+                <span className={classes.charCount}>13/20 char</span>
+              </div>
+              <div>
+                <TextField
+                  id="outlined-email-input"
+                  label="Email"
+                  className={classes.textField}
+                  type="email"
+                  name="email"
+                  autoComplete="email"
+                  margin="normal"
+                  variant="outlined"
+                  value={email}
+                  onChange={this.handleEmail}
+                />
+                <span className={classes.usernameError}>
+                  Error msg - invalid email
+                </span>
+              </div>
+              <div>
+                <TextField
+                  id="outlined-password-input"
+                  label="Password"
+                  className={classes.textField}
+                  type="password"
+                  autoComplete="current-password"
+                  margin="normal"
+                  variant="outlined"
+                  value={password}
+                  onChange={this.handlePassword}
+                />
+                <span className={classes.passwordTxt}>Assistive Text</span>
+              </div>
+              <div className={classes.checkboxSection}>
+                <input
+                  type="checkbox"
+                  checked={hasAcceptedTerms}
+                  onChange={this.handleAcceptedTerms}
+                />
+                <p>
+                  I agree with{" "}
+                  <a href="#" title="SingularityNET Terms of Service">
+                    SingularityNET Terms of Service
+                  </a>
+                </p>
+              </div>
+              <p className={classes.errorText}>error state message</p>
+              <button
+                className={classes.formButton}
+                disabled={this.shouldSubmitBeDisabled()}
+                onClick={this.handleSubmit}
+              >
+                create account
+              </button>
+            </form>
+          </Grid>
         </Grid>
-      </Grid>
-      <Grid container spacing={24}>
-        <Grid item xs={12} sm={12} md={6} lg={6} className={classes.signupInfo}>
-          <h2>Sign up for your free account in minutes</h2>
-          <p>
-            Use your Github account to easily get started, or fill out the form.
-            Get free credits for the first month and continue with your
-            perferred wallet or credit card.
-          </p>
-          <ul>
-            <li>
-              <i className="fas fa-check-circle"></i>
-              <p>Built for you, powered for enterprise.</p>
-            </li>
-            <li>
-              <i className="fas fa-check-circle"></i>
-              <p>
-                Get 100 free credits to try out any of the AI services
-                available. Easily refill your credits anytime.
-              </p>
-            </li>
-            <li>
-              <i className="fas fa-check-circle"></i>
-              <p>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-                eiusmod tempor incididunt ut labore et dolore magna aliqua.
-              </p>
-            </li>
-          </ul>
-        </Grid>
-        <Grid item xs={12} sm={12} md={6} lg={6}>
-          <form noValidate autoComplete="off" className={classes.signupForm}>
-            <h3>sign up with </h3>
-            <button className={classes.githubBtn}>
-              <i className="fab fa-github"></i>
-              github
-            </button>
-            <span className={classes.horizontalLine}>or</span>
-            <div>
-              <TextField
-                id="outlined-user-name"
-                label="UserName"
-                className={classes.textField}
-                // value={this.state.UserName}
-                // onChange={this.handleUserNameChange('name')}
-                margin="normal"
-                variant="outlined"
-              />
-              <span className={classes.charCount}>13/20 char</span>
-            </div>
-            <div>
-              <TextField
-                id="outlined-email-input"
-                label="Email"
-                className={classes.textField}
-                type="email"
-                name="email"
-                autoComplete="email"
-                margin="normal"
-                variant="outlined"
-              />
-              <span className={classes.usernameError}>
-                Error msg - invalid email
-              </span>
-            </div>
-            <div>
-              <TextField
-                id="outlined-password-input"
-                label="Password"
-                className={classes.textField}
-                type="password"
-                autoComplete="current-password"
-                margin="normal"
-                variant="outlined"
-              />
-              <span className={classes.passwordTxt}>Assistive Text</span>
-            </div>
-            <div className={classes.checkboxSection}>
-              <input type="checkbox" />
-              <p>
-                I agree with{" "}
-                <a href="#" title="SingularityNET Terms of Service">
-                  SingularityNET Terms of Service
-                </a>
-              </p>
-            </div>
-            <p className={classes.errorText}>error state message</p>
-            <button className={classes.formButton}>create account</button>
-          </form>
-        </Grid>
-      </Grid>
-    </div>
-  );
+      </div>
+    );
+  }
 }
 
-export default SignUp;
+export default withStyles(useStyles)(SignUp);

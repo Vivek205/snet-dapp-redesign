@@ -38,9 +38,9 @@ const useStyles = theme => ({
   },
   loginHeaderLink: {
     textAlign: "right",
-    '& a': {
-      '&:hover': {
-        textDecoration: 'underline'
+    "& a": {
+      "&:hover": {
+        textDecoration: "underline"
       }
     },
     ["@media (max-width:750px)"]: {
@@ -100,7 +100,8 @@ const useStyles = theme => ({
     width: 410,
     padding: "20px 20px 30px",
     margin: "0 auto",
-    boxShadow: "0 1px 1px 0 rgba(0,0,0,0.14), 0 2px 1px -1px rgba(0,0,0,0.14), 0 1px 3px 0 rgba(0,0,0,0.2)",
+    boxShadow:
+      "0 1px 1px 0 rgba(0,0,0,0.14), 0 2px 1px -1px rgba(0,0,0,0.14), 0 1px 3px 0 rgba(0,0,0,0.2)",
     "& h3": {
       margin: 0,
       color: "rgba(0,0,0,0.6)",
@@ -114,12 +115,12 @@ const useStyles = theme => ({
       marginTop: 35
     }
   },
-   githubBtn: {
+  githubBtn: {
     width: "100%",
     padding: "12px 0",
     borderWidth: 1,
-    borderStyle: 'solid',
-    borderColor: '#333',
+    borderStyle: "solid",
+    borderColor: "#333",
     borderRadius: 4,
     margin: "11px 0 15px",
     display: "flex",
@@ -131,15 +132,15 @@ const useStyles = theme => ({
     fontSize: "14px",
     letterSpacing: "1.25px",
     textTransform: "uppercase",
-    transition: '0.3s',
+    transition: "0.3s",
     "& i": {
       fontSize: 24,
       marginRight: 5
     },
-    '&:hover':{
-      backgroundColor: '#fff',
-      borderColor: '#333',
-      color: '#333',
+    "&:hover": {
+      backgroundColor: "#fff",
+      borderColor: "#333",
+      color: "#333"
     }
   },
   horizontalLine: {
@@ -151,7 +152,7 @@ const useStyles = theme => ({
     "&::before": {
       content: '" "',
       display: "inline-block",
-      verticalAlign:'middle',
+      verticalAlign: "middle",
       width: 160,
       height: 1,
       backgroundColor: "#F5F7F8",
@@ -160,7 +161,7 @@ const useStyles = theme => ({
     "&::after": {
       content: '" "',
       display: "inline-block",
-      verticalAlign:'middle',
+      verticalAlign: "middle",
       width: 160,
       height: 1,
       marginLeft: 10,
@@ -183,18 +184,18 @@ const useStyles = theme => ({
     width: "100%",
     padding: "13px 0",
     border: 1,
-    borderStyle: 'solid',
-    borderColor: '#4086ff',
+    borderStyle: "solid",
+    borderColor: "#4086ff",
     borderRadius: 4,
     backgroundColor: "#4086ff",
     color: "#fff",
     cursor: "pointer",
     fontSize: "14px",
     textTransform: "uppercase",
-    '&:hover':{
-      borderColor: '#4086ff',
-      backgroundColor: '#fff',
-      color: '#4086ff'
+    "&:hover": {
+      borderColor: "#4086ff",
+      backgroundColor: "#fff",
+      color: "#4086ff"
     }
   },
   textField: {
@@ -234,7 +235,7 @@ const useStyles = theme => ({
       fontSize: 14,
       textDecoration: "none"
     }
-  },
+  }
 });
 
 class SignUp extends Component {
@@ -242,7 +243,8 @@ class SignUp extends Component {
     username: "",
     email: "",
     password: "",
-    hasAcceptedTerms: false
+    hasAcceptedTerms: false,
+    error: undefined
   };
   handleUsername = event => {
     this.setState({ username: event.currentTarget.value });
@@ -259,6 +261,7 @@ class SignUp extends Component {
     }));
   };
   handleSubmit = event => {
+    this.setState({ error: undefined });
     event.preventDefault();
     event.stopPropagation();
     const { username, password, email } = this.state;
@@ -274,7 +277,7 @@ class SignUp extends Component {
         console.log("user", user);
         this.props.history.push(Routes.VERIFY);
       })
-      .catch(err => alert(err.message));
+      .catch(err => this.setState({ error: err.message }));
   };
   shouldSubmitBeDisabled = () => {
     const { username, email, password, hasAcceptedTerms } = this.state;
@@ -284,7 +287,7 @@ class SignUp extends Component {
     return true;
   };
   render() {
-    const { username, email, password, hasAcceptedTerms } = this.state;
+    const { username, email, password, hasAcceptedTerms, error } = this.state;
     const { classes } = this.props;
     return (
       <div className={classes.wrapper}>
@@ -409,7 +412,7 @@ class SignUp extends Component {
                   </a>
                 </p>
               </div>
-              <p className={classes.errorText}>error state message</p>
+              {error && <p className={classes.errorText}>{error}</p>}
               <button
                 className={classes.formButton}
                 disabled={this.shouldSubmitBeDisabled()}

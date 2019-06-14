@@ -15,6 +15,7 @@ import "./App.css";
 import Routes from "./utility/stringConstants/routes";
 import Verify from "./components/Login/Verify";
 import ForgotPassword from "./components/Login/forgotpassword";
+import ForgotPasswordSubmit from "./components/Login/ForgotPasswordSubmit";
 
 Amplify.configure(aws_config);
 
@@ -30,6 +31,10 @@ class App extends Component {
             <Route
               path={`/${Routes.FORGOT_PASSWORD}`}
               component={ForgotPassword}
+            />
+            <Route
+              path={`/${Routes.FORGOT_PASSWORD_SUBMIT}`}
+              component={ForgotPasswordSubmit}
             />
             <Route
               path={`/${Routes.AI_MARKETPLACE}`}

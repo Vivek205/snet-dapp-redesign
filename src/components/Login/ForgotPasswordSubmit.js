@@ -22,8 +22,8 @@ class ForgotPasswordSubmit extends Component {
     const { code, password } = this.state;
     event.preventDefault();
     Auth.forgotPasswordSubmit(username, code, password)
-      .then(data => console.log("forgot submit", data))
-      .catch(err => console.log("forgot submit", err));
+      .then(data => console.log("forgot submit data", data))
+      .catch(err => console.log("forgot submit err", err));
   };
 
   render() {

@@ -104,7 +104,7 @@ class ForgotPassword extends Component {
       .then(res => {
         console.log(res);
         sessionStorage.setItem(Session.USERNAME, username);
-        this.props.history.push(Routes.VERIFY);
+        this.props.history.push(Routes.FORGOT_PASSWORD_SUBMIT);
       })
       .catch(err => {
         console.log("forgot password err", err);

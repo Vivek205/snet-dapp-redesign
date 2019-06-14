@@ -1,12 +1,17 @@
-const endpoints = [
-  {
+export const APIEndpoints = {
+  GET_SERVICE: {
     name: "Get Service",
-    endpoint:
-      "https://eahj19g751.execute-api.us-east-1.amazonaws.com/dev/service",
+    endpoint: "https://eahj19g751.execute-api.us-east-1.amazonaws.com/dev",
     service: "lambda",
     region: "us-east-1"
   }
-];
+};
+
+let endpoints = [];
+
+Object.values(APIEndpoints).map(value => {
+  endpoints.push(value);
+});
 
 export const aws_config = {
   // OPTIONAL - if your API requires authentication

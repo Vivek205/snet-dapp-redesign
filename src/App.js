@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import Amplify from "aws-amplify";
 import { aws_config } from "./aws_config";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+
 // components
 import AiMarketplace from "./components/AiMarketplace/index.js";
 import SignUp from "./components/Login/signup.js";

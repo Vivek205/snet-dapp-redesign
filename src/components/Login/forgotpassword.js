@@ -1,10 +1,13 @@
 import React, { Component } from "react";
+
 import { Link } from "react-router-dom";
+
 
 // material components
 import { makeStyles } from "@material-ui/styles";
 import Grid from "@material-ui/core/Grid";
 import TextField from "@material-ui/core/TextField";
+
 import { withStyles } from "@material-ui/styles";
 
 // images
@@ -14,11 +17,14 @@ import { Auth } from "aws-amplify";
 import Session from "../../utility/stringConstants/session";
 
 const useStyles = theme => ({
+
   loginHeader: {
+    width: "71%",
+    padding: "30px 0",
+    margin: "0 auto",
     display: "flex",
     alignItems: "center",
     justifyContent: "space-between",
-    flexBasis: "100%",
     padding: "30px 0",
     "& h1": {
       margin: 0
@@ -30,10 +36,23 @@ const useStyles = theme => ({
     "& a": {
       color: "#4086ff",
       textDecoration: "none"
+    },
+    ["@media (max-width:750px)"]: {
+      width: "75%"
     }
   },
   loginHeaderLink: {
-    textAlign: "right"
+    textAlign: "right",
+    '& a': {
+      '&:hover': {
+        textDecoration: 'underline'
+      }
+    },
+    ["@media (max-width:750px)"]: {
+      maxWidth: "100%",
+      flexBasis: "100%",
+      textAlign: "left"
+    }
   },
   forgotPwdContent: {
     textAlign: "center",
@@ -47,6 +66,11 @@ const useStyles = theme => ({
       color: "#616161",
       fontSize: "22px",
       fontFamily: "Raleway"
+    },
+    ["@media (max-width:527px)"]: {
+      width: "75%",
+      margin: "0 auto",
+      flexBasis: "90%"
     }
   },
   forgotPwdForm: {
@@ -55,7 +79,10 @@ const useStyles = theme => ({
     padding: "40px 20px 30px",
     margin: "45px auto 0",
     boxShadow:
-      "0 1px 1px 0 rgba(0,0,0,0.14), 0 2px 1px -1px rgba(0,0,0,0.14), 0 1px 3px 0 rgba(0,0,0,0.2)"
+      "0 1px 1px 0 rgba(0,0,0,0.14), 0 2px 1px -1px rgba(0,0,0,0.14), 0 1px 3px 0 rgba(0,0,0,0.2)",
+    ["@media (max-width:527px)"]: {
+      width: "100%"
+    }
   },
   textField: {
     width: "100%",
@@ -76,16 +103,22 @@ const useStyles = theme => ({
   formButton: {
     width: "100%",
     padding: "13px 0",
-    border: "none",
+    border: 1,
+    borderStyle: 'solid',
+    borderColor: '#4086ff',
     borderRadius: 4,
     backgroundColor: "#4086ff",
     color: "#fff",
     cursor: "pointer",
     fontSize: "14px",
-    textTransform: "uppercase"
+    textTransform: "uppercase",
+    '&:hover':{
+      borderColor: '#4086ff',
+      backgroundColor: '#fff',
+      color: '#4086ff'
+    }
   }
 });
-
 class ForgotPassword extends Component {
   state = {
     username: "",
@@ -165,6 +198,7 @@ class ForgotPassword extends Component {
             </button>
           </form>
         </Grid>
+
       </Grid>
     );
   }

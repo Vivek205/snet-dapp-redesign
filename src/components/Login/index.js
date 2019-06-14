@@ -8,6 +8,7 @@ import TextField from "@material-ui/core/TextField";
 
 // images
 import Logo from "../../assets/images/LoginLogo.png";
+
 import { Auth } from "aws-amplify";
 import Routes from "../../utility/stringConstants/routes";
 import Session from "../../utility/stringConstants/session";
@@ -31,10 +32,23 @@ const useStyles = theme => ({
     "& a": {
       color: "#4086ff",
       textDecoration: "none"
+    },
+    ["@media (max-width:750px)"]: {
+      width: "75%"
     }
   },
   loginHeaderLink: {
-    textAlign: "right"
+    textAlign: "right",
+    '& a': {
+      '&:hover': {
+        textDecoration: 'underline'
+      }
+    },
+    ["@media (max-width:750px)"]: {
+      maxWidth: "100%",
+      flexBasis: "100%",
+      textAlign: "left"
+    }
   },
   loginDetails: {
     textAlign: "center",
@@ -57,12 +71,17 @@ const useStyles = theme => ({
       fontSize: 16,
       letterSpacing: "0.29px",
       textTransform: "uppercase"
+    },
+    ["@media (max-width:545px)"]: {
+      width: "80%"
     }
   },
   githubBtn: {
     width: "100%",
     padding: "12px 0",
-    border: "none",
+    borderWidth: 1,
+    borderStyle: 'solid',
+    borderColor: '#333',
     borderRadius: 4,
     margin: "11px 0 15px",
     display: "flex",
@@ -74,9 +93,15 @@ const useStyles = theme => ({
     fontSize: "14px",
     letterSpacing: "1.25px",
     textTransform: "uppercase",
+    transition: '0.3s',
     "& i": {
       fontSize: 24,
       marginRight: 5
+    },
+    '&:hover':{
+      backgroundColor: '#fff',
+      borderColor: '#333',
+      color: '#333',
     }
   },
   horizontalLine: {
@@ -85,11 +110,23 @@ const useStyles = theme => ({
     fontSize: 14,
     textTransform: "uppercase",
     textAlign: "center",
-    "&:after": {
-      width: "1px",
-      height: "5px",
-      backgroundColor: "red",
-      display: "block"
+    "&::before": {
+      content: '" "',
+      display: "inline-block",
+      verticalAlign: 'middle',
+      width: 160,
+      height: 1,
+      backgroundColor: "#F5F7F8",
+      marginRight: 10
+    },
+    "&::after": {
+      content: '" "',
+      display: "inline-block",
+      verticalAlign: 'middle',
+      width: 160,
+      height: 1,
+      marginLeft: 10,
+      backgroundColor: "#F5F7F8"
     }
   },
   textField: {
@@ -110,6 +147,9 @@ const useStyles = theme => ({
       fontSize: 14,
       letterSpacing: "0.25px",
       textDecoration: "none"
+    },
+    ["@media (max-width:400px)"]: {
+      flexDirection: "column"
     }
   },
   errorText: {
@@ -127,15 +167,22 @@ const useStyles = theme => ({
   formButton: {
     width: "100%",
     padding: "13px 0",
-    border: "none",
+    border: 1,
+    borderStyle: 'solid',
+    borderColor: '#4086ff',
     borderRadius: 4,
     backgroundColor: "#4086ff",
     color: "#fff",
     cursor: "pointer",
     fontSize: "14px",
-    textTransform: "uppercase"
+    textTransform: "uppercase",
+    '&:hover':{
+      borderColor: '#4086ff',
+      backgroundColor: '#fff',
+      color: '#4086ff'
+    }
   }
-});
+})
 
 class Login extends Component {
   state = {

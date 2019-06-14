@@ -181,7 +181,7 @@ class Login extends Component {
             className={classes.loginHeaderLink}
           >
             <p>
-              Doesn't have an account? <Link to="signup">SignUp</Link>
+              Doesn't have an account? <Link to={Routes.SIGNUP}>SignUp</Link>
             </p>
           </Grid>
         </Grid>

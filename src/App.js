@@ -12,6 +12,7 @@ import { ThemeProvider } from "@material-ui/styles";
 import theme from "./assets/theme.js";
 
 import "./App.css";
+import Routes from "./utility/stringConstants/routes";
 
 Amplify.configure(aws_config);
 
@@ -21,9 +22,12 @@ class App extends Component {
       <ThemeProvider theme={theme}>
         <Router>
           <Switch>
-            <Route path="/signup" component={SignUp} />
-            <Route path="/login" component={Login} />
-            <Route path="/aimarketplace" component={AiMarketplace} />
+            <Route path={`/${Routes.SIGNUP}`} component={SignUp} />
+            <Route path={`/${Routes.LOGIN}`} component={Login} />
+            <Route
+              path={`/${Routes.AI_MARKETPLACE}`}
+              component={AiMarketplace}
+            />
           </Switch>
         </Router>
       </ThemeProvider>

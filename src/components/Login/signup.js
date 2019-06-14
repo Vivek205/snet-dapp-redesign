@@ -8,6 +8,7 @@ import TextField from "@material-ui/core/TextField";
 import Logo from "../../assets/images/LoginLogo.png";
 import { withStyles } from "@material-ui/styles";
 import { Auth } from "aws-amplify";
+import Routes from "../../utility/stringConstants/routes";
 
 const useStyles = theme => ({
   wrapper: {
@@ -255,7 +256,7 @@ class SignUp extends Component {
             className={classes.loginHeaderLink}
           >
             <p>
-              Already have an account? <Link to="login">Login</Link>
+              Already have an account? <Link to={Routes.LOGIN}>Login</Link>
             </p>
           </Grid>
         </Grid>

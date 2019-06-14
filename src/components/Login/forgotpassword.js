@@ -1,16 +1,23 @@
 import React, { Component } from "react";
 
+import { Link } from "react-router-dom";
+
+
 // material components
 import { makeStyles } from "@material-ui/styles";
 import Grid from "@material-ui/core/Grid";
 import TextField from "@material-ui/core/TextField";
-import FormControlLabel from "@material-ui/core/FormControlLabel";
-import Checkbox from "@material-ui/core/Checkbox";
+
+import { withStyles } from "@material-ui/styles";
 
 // images
 import Logo from "../../assets/images/LoginLogo.png";
+import Routes from "../../utility/stringConstants/routes";
+import { Auth } from "aws-amplify";
+import Session from "../../utility/stringConstants/session";
 
-const useStyles = makeStyles(theme => ({
+const useStyles = theme => ({
+
   loginHeader: {
     width: "71%",
     padding: "30px 0",
@@ -111,44 +118,89 @@ const useStyles = makeStyles(theme => ({
       color: '#4086ff'
     }
   }
-}));
+});
+class ForgotPassword extends Component {
+  state = {
+    username: "",
+    error: undefined
+  };
+  handleUsername = event => {
+    this.setState({ username: event.currentTarget.value });
+  };
+  handleSubmit = event => {
+    this.setState({ error: undefined });
+    const { username } = this.state;
 
-function ForgotPassword() {
-  const classes = useStyles();
-  return (
-    <Grid container spacing={24}>
-      <Grid container spacing={24} className={classes.loginHeader}>
-        <Grid item xs={12} sm={6} md={6} lg={6}>
-          <h1>
-            <a href="#" title="SingularityNET">
-              <img src={Logo} alt="SingularityNET" />
-            </a>
-          </h1>
+    event.preventDefault();
+    event.stopPropagation();
+    Auth.forgotPassword(username)
+      .then(res => {
+        console.log(res);
+        sessionStorage.setItem(Session.USERNAME, username);
+        this.props.history.push(Routes.FORGOT_PASSWORD_SUBMIT);
+      })
+      .catch(err => {
+        console.log("forgot password err", err);
+        this.setState({ error: err.message });
+      });
+  };
+  render() {
+    const { classes } = this.props;
+    const { username, error } = this.state;
+    return (
+      <Grid container spacing={24}>
+        <Grid container spacing={24} className={classes.loginHeader}>
+          <Grid item xs={12} sm={6} md={6} lg={6}>
+            <h1>
+              <a href="#" title="SingularityNET">
+                <img src={Logo} alt="SingularityNET" />
+              </a>
+            </h1>
+          </Grid>
+          <Grid
+            item
+            xs={12}
+            sm={6}
+            md={6}
+            lg={6}
+            className={classes.loginHeaderLink}
+          >
+            <p>
+              Already have an account? <Link to={Routes.LOGIN}>Login</Link>
+            </p>
+          </Grid>
         </Grid>
-        <Grid item xs={12} sm={6} md={6} lg={6} className={classes.loginHeaderLink}>
-          <p>Already have an account? <a href="#" title="Signup"> Login </a></p>
+        <Grid
+          item
+          xs={12}
+          sm={12}
+          md={12}
+          lg={12}
+          className={classes.forgotPwdContent}
+        >
+          <h2>Forgot your pasword?</h2>
+          <p>We'll email you instructions on how to reset it.</p>
+          <form noValidate autoComplete="off" className={classes.forgotPwdForm}>
+            <TextField
+              id="outlined-username-input"
+              label="User Name"
+              className={classes.textField}
+              type="text"
+              name="username"
+              margin="normal"
+              variant="outlined"
+              value={username}
+              onChange={this.handleUsername}
+            />
+            {error && <p className={classes.errorText}>{error}</p>}
+            <button className={classes.formButton} onClick={this.handleSubmit}>
+              reset password
+            </button>
+          </form>
         </Grid>
+
       </Grid>
-      <Grid item xs={12} sm={12} md={12} lg={12} className={classes.forgotPwdContent}>
-        <h2>Forgot your pasword?</h2>
-        <p>We'll email you instructions on how to reset it.</p>
-        <form noValidate autoComplete="off" className={classes.forgotPwdForm}>
-          <TextField
-            id="outlined-email-input"
-            label="Email"
-            className={classes.textField}
-            type="email"
-            name="email"
-            autoComplete="email"
-            margin="normal"
-            variant="outlined"
-          />
-          <p className={classes.errorText}>error state message</p>
-          <button className={classes.formButton}>reset password</button>
-        </form>
-      </Grid>
-    </Grid>
-  );
+    );
+  }
 }
-
-export default ForgotPassword;
+export default withStyles(useStyles)(ForgotPassword);

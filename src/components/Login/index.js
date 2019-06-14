@@ -2,16 +2,16 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom";
 
 // material components
-import { makeStyles, withStyles } from "@material-ui/styles";
+import { withStyles } from "@material-ui/styles";
 import Grid from "@material-ui/core/Grid";
 import TextField from "@material-ui/core/TextField";
-import FormControlLabel from "@material-ui/core/FormControlLabel";
 
 // images
 import Logo from "../../assets/images/LoginLogo.png";
 
 import { Auth } from "aws-amplify";
 import Routes from "../../utility/stringConstants/routes";
+import Session from "../../utility/stringConstants/session";
 
 const useStyles = theme => ({
   loginHeader: {
@@ -204,6 +204,11 @@ class Login extends Component {
         this.props.history.push(Routes.AI_MARKETPLACE);
       })
       .catch(err => {
+        if (err.code === "UserNotConfirmedException") {
+          sessionStorage.setItem(Session.USERNAME, username);
+          this.props.history.push(Routes.VERIFY);
+          return;
+        }
         alert(err.message);
       });
   };
@@ -229,7 +234,7 @@ class Login extends Component {
             className={classes.loginHeaderLink}
           >
             <p>
-              Doesn't have an account? <Link to="signup">SignUp</Link>
+              Doesn't have an account? <Link to={Routes.SIGNUP}>SignUp</Link>
             </p>
           </Grid>
         </Grid>
@@ -276,9 +281,7 @@ class Login extends Component {
                 <input type="checkbox" />
                 <label>Remember Me</label>
               </div>
-              <a href="#" title="Forgot Password">
-                Forgot password?
-              </a>
+              <Link to={Routes.FORGOT_PASSWORD}>Forgot password?</Link>
             </div>
             <p className={classes.errorText}>error state message</p>
             <button className={classes.formButton} onClick={this.handleSubmit}>

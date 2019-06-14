@@ -10,6 +10,7 @@ import Logo from "../../assets/images/LoginLogo.png";
 
 import { withStyles } from "@material-ui/styles";
 import { Auth } from "aws-amplify";
+import Routes from "../../utility/stringConstants/routes";
 
 const useStyles = theme => ({
   wrapper: {
@@ -269,7 +270,10 @@ class SignUp extends Component {
         name: username
       }
     })
-      .then(user => console.log("user", user))
+      .then(user => {
+        console.log("user", user);
+        this.props.history.push(Routes.VERIFY);
+      })
       .catch(err => alert(err.message));
   };
   shouldSubmitBeDisabled = () => {
@@ -301,7 +305,7 @@ class SignUp extends Component {
             className={classes.loginHeaderLink}
           >
             <p>
-              Already have an account? <Link to="login">Login</Link>
+              Already have an account? <Link to={Routes.LOGIN}>Login</Link>
             </p>
           </Grid>
         </Grid>

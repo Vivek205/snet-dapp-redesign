@@ -1,25 +1,23 @@
 import React, { Component } from "react";
 import { Auth } from "aws-amplify";
+import Session from "../../utility/stringConstants/session";
 
 class Verify extends Component {
   state = {
     otp: ""
   };
-  componentDidMount = () => {
-    console.log(
-      "username",
-      this.props.location.state.username,
-      this.props.history
-    );
-  };
+
   handleChange = event => {
     this.setState({ otp: event.target.value });
   };
   handleSubmit = event => {
-    const { username } = this.props.location.state;
+    let username;
+    if (sessionStorage.getItem(Session.USERNAME)) {
+      username = sessionStorage.getItem(Session.USERNAME);
+    }
     event.preventDefault();
     event.stopPropagation();
-    Auth.confirmSignUp(username.name, this.state.otp)
+    Auth.confirmSignUp(username, this.state.otp)
       .then(res => {
         console.log("otp verified", res);
         this.props.history.push("home");

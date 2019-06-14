@@ -14,6 +14,7 @@ import theme from "./assets/theme.js";
 import "./App.css";
 import Routes from "./utility/stringConstants/routes";
 import Verify from "./components/Login/Verify";
+import ForgotPassword from "./components/Login/forgotpassword";
 
 Amplify.configure(aws_config);
 
@@ -25,7 +26,11 @@ class App extends Component {
           <Switch>
             <Route path={`/${Routes.SIGNUP}`} component={SignUp} />
             <Route path={`/${Routes.LOGIN}`} component={Login} />
-            <Route pathe={`/${Routes.VERIFY}/:username`} component={Verify} />
+            <Route path={`/${Routes.VERIFY}`} component={Verify} />
+            <Route
+              path={`/${Routes.FORGOT_PASSWORD}`}
+              component={ForgotPassword}
+            />
             <Route
               path={`/${Routes.AI_MARKETPLACE}`}
               component={AiMarketplace}

@@ -10,6 +10,7 @@ import TextField from "@material-ui/core/TextField";
 import Logo from "../../assets/images/LoginLogo.png";
 import { Auth } from "aws-amplify";
 import Routes from "../../utility/stringConstants/routes";
+import Session from "../../utility/stringConstants/session";
 
 const useStyles = theme => ({
   loginHeader: {
@@ -157,9 +158,8 @@ class Login extends Component {
       })
       .catch(err => {
         if (err.code === "UserNotConfirmedException") {
-          this.props.history.push(Routes.VERIFY, {
-            username
-          });
+          sessionStorage.setItem(Session.USERNAME, username);
+          this.props.history.push(Routes.VERIFY);
           return;
         }
         alert(err.message);
@@ -234,9 +234,7 @@ class Login extends Component {
                 <input type="checkbox" />
                 <label>Remember Me</label>
               </div>
-              <a href="#" title="Forgot Password">
-                Forgot password?
-              </a>
+              <Link to={Routes.FORGOT_PASSWORD}>Forgot password?</Link>
             </div>
             <p className={classes.errorText}>error state message</p>
             <button className={classes.formButton} onClick={this.handleSubmit}>

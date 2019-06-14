@@ -1,15 +1,19 @@
 import React, { Component } from "react";
+import { Link } from "react-router-dom";
 
 // material components
-import { makeStyles } from "@material-ui/styles";
+import { makeStyles, withStyles } from "@material-ui/styles";
 import Grid from "@material-ui/core/Grid";
 import TextField from "@material-ui/core/TextField";
-import Checkbox from "@material-ui/core/Checkbox";
+import FormControlLabel from "@material-ui/core/FormControlLabel";
 
 // images
 import Logo from "../../assets/images/LoginLogo.png";
 
-const useStyles = makeStyles(theme => ({
+import { Auth } from "aws-amplify";
+import Routes from "../../utility/stringConstants/routes";
+
+const useStyles = theme => ({
   loginHeader: {
     display: "flex",
     alignItems: "center",
@@ -178,72 +182,112 @@ const useStyles = makeStyles(theme => ({
       color: '#4086ff'
     }
   }
-}));
+})
 
-function Login() {
-  const classes = useStyles();
-  return (
-    <Grid container spacing={24}>
-      <Grid container spacing={24} className={classes.loginHeader}>
-        <Grid item xs={12} sm={6} md={6} lg={6}>
-          <h1>
-            <a href="#" title="SingularityNET">
-              <img src={Logo} alt="SingularityNET" />
-            </a>
-          </h1>
+class Login extends Component {
+  state = {
+    username: "",
+    password: ""
+  };
+  handleUsername = event => {
+    this.setState({ username: event.currentTarget.value });
+  };
+  handlePassword = event => {
+    this.setState({ password: event.currentTarget.value });
+  };
+  handleSubmit = event => {
+    const { username, password } = this.state;
+    event.preventDefault();
+    event.stopPropagation();
+    Auth.signIn(username, password)
+      .then(() => {
+        this.props.history.push(Routes.AI_MARKETPLACE);
+      })
+      .catch(err => {
+        alert(err.message);
+      });
+  };
+  render() {
+    const { classes } = this.props;
+    const { username, password } = this.state;
+    return (
+      <Grid container spacing={24}>
+        <Grid container spacing={24} className={classes.loginHeader}>
+          <Grid item xs={12} sm={6} md={6} lg={6}>
+            <h1>
+              <a href="#" title="SingularityNET">
+                <img src={Logo} alt="SingularityNET" />
+              </a>
+            </h1>
+          </Grid>
+          <Grid
+            item
+            xs={12}
+            sm={6}
+            md={6}
+            lg={6}
+            className={classes.loginHeaderLink}
+          >
+            <p>
+              Doesn't have an account? <Link to="signup">SignUp</Link>
+            </p>
+          </Grid>
         </Grid>
-        <Grid item xs={12} sm={6} md={6} lg={6} className={classes.loginHeaderLink}>
-          <p>Already have an account? <a href="#" title="Signup"> Login</a></p>
-        </Grid>
-      </Grid>
-      <Grid item xs={12} sm={12} md={12} lg={12} className={classes.loginDetails}>
-        <h2>Welcome Back</h2>
-        <form noValidate autoComplete="off" className={classes.loginForm}>
-          <h3>log in with </h3>
-          <button className={classes.githubBtn}>
-            <i className="fab fa-github"></i>
-            github
-          </button>
-          <span className={classes.horizontalLine}>or</span>
-          <TextField
-            id="outlined-user-name"
-            label="UserName"
-            className={classes.textField}
-            // value={this.state.UserName}
-            // onChange={this.handleUserNameChange('name')}
-            margin="normal"
-            variant="outlined"
-          />
-          <TextField
-            id="outlined-password-input"
-            label="Password"
-            className={classes.textField}
-            type="password"
-            autoComplete="current-password"
-            margin="normal"
-            variant="outlined"
-          />
-          <div className={classes.checkboxSection}>
-            <div className={classes.checkbox}>
-              <Checkbox
-                value="checked"
-                color="primary"
-                inputProps={{
-                  "aria-label": "secondary checkbox"
-                }}
-              />
-              <label>Remember Me</label>
+        <Grid
+          item
+          xs={12}
+          sm={12}
+          md={12}
+          lg={12}
+          className={classes.loginDetails}
+        >
+          <h2>Welcome Back</h2>
+          <form noValidate autoComplete="off" className={classes.loginForm}>
+            <h3>log in with </h3>
+            <button className={classes.githubBtn}>
+              <i className="fab fa-github"></i>
+              github
+            </button>
+            <span className={classes.horizontalLine}>or</span>
+            <TextField
+              id="outlined-user-name"
+              label="UserName"
+              className={classes.textField}
+              // value={this.state.UserName}
+              // onChange={this.handleUserNameChange('name')}
+              margin="normal"
+              variant="outlined"
+              value={username}
+              onChange={this.handleUsername}
+            />
+            <TextField
+              id="outlined-password-input"
+              label="Password"
+              className={classes.textField}
+              type="password"
+              autoComplete="current-password"
+              margin="normal"
+              variant="outlined"
+              value={password}
+              onChange={this.handlePassword}
+            />
+            <div className={classes.checkboxSection}>
+              <div className={classes.checkbox}>
+                <input type="checkbox" />
+                <label>Remember Me</label>
+              </div>
+              <a href="#" title="Forgot Password">
+                Forgot password?
+              </a>
             </div>
-            <a href="#" title="Forgot Password">
-              Forgot password?
-            </a>
-          </div>
-          <p className={classes.errorText}>error state message</p>
-          <button className={classes.formButton}>login</button>
-        </form>
+            <p className={classes.errorText}>error state message</p>
+            <button className={classes.formButton} onClick={this.handleSubmit}>
+              login
+            </button>
+          </form>
+        </Grid>
       </Grid>
-    </Grid>
-  );
+    );
+  }
 }
-
-export default Login;
+export default withStyles(useStyles)(Login);

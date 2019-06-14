@@ -36,6 +36,11 @@ const useStyles = makeStyles(theme => ({
   },
   loginHeaderLink: {
     textAlign: "right",
+    '& a': {
+      '&:hover': {
+        textDecoration: 'underline'
+      }
+    },
     ["@media (max-width:750px)"]: {
       maxWidth: "100%",
       flexBasis: "100%",
@@ -91,13 +96,20 @@ const useStyles = makeStyles(theme => ({
   formButton: {
     width: "100%",
     padding: "13px 0",
-    border: "none",
+    border: 1,
+    borderStyle: 'solid',
+    borderColor: '#4086ff',
     borderRadius: 4,
     backgroundColor: "#4086ff",
     color: "#fff",
     cursor: "pointer",
     fontSize: "14px",
-    textTransform: "uppercase"
+    textTransform: "uppercase",
+    '&:hover':{
+      borderColor: '#4086ff',
+      backgroundColor: '#fff',
+      color: '#4086ff'
+    }
   }
 }));
 
@@ -113,30 +125,11 @@ function ForgotPassword() {
             </a>
           </h1>
         </Grid>
-        <Grid
-          item
-          xs={12}
-          sm={6}
-          md={6}
-          lg={6}
-          className={classes.loginHeaderLink}
-        >
-          <p>
-            Already have an account?{" "}
-            <a href="#" title="Signup">
-              Login
-            </a>
-          </p>
+        <Grid item xs={12} sm={6} md={6} lg={6} className={classes.loginHeaderLink}>
+          <p>Already have an account? <a href="#" title="Signup"> Login </a></p>
         </Grid>
       </Grid>
-      <Grid
-        item
-        xs={12}
-        sm={12}
-        md={12}
-        lg={12}
-        className={classes.forgotPwdContent}
-      >
+      <Grid item xs={12} sm={12} md={12} lg={12} className={classes.forgotPwdContent}>
         <h2>Forgot your pasword?</h2>
         <p>We'll email you instructions on how to reset it.</p>
         <form noValidate autoComplete="off" className={classes.forgotPwdForm}>

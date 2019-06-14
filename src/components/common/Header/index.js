@@ -4,6 +4,8 @@ import React, { Component } from 'react';
 import { makeStyles } from '@material-ui/styles';
 import Grid from '@material-ui/core/Grid';
 
+import StyledDropdown from '../StyledDropdown/index.js';
+
 // import Images
 import Logo from '../../../assets/images/Logo.png';
 
@@ -36,7 +38,7 @@ const useStyles = makeStyles(theme => ({
   navLinksAnchor: {
     textDecoration: 'none',
     fontSize: 20,
-    color: '#fff',
+    color: '#9B9B9B',
   },
   activeTab: {
     paddingBottom: 12,
@@ -44,7 +46,7 @@ const useStyles = makeStyles(theme => ({
     borderBottomWidth: '2px',
     borderBottomStyle: 'solid',
     borderBottomColor: '#fff',
-
+    color: '#fff'
   },
   loginBtnsUl: {
     margin: 0,
@@ -77,6 +79,9 @@ const useStyles = makeStyles(theme => ({
     lineHeight: '16px',
   },
   UppercaseText: { textTransform: 'uppercase'},
+  XXX:{
+    backgroundColor: 'red'
+  }
 }));
 
 function Header() {
@@ -91,7 +96,7 @@ function Header() {
             </a>
           </h1>
         </Grid>
-        <Grid item xs={6} sm={6} md={6} lg={6} className="navigations">
+        <Grid item xs={6} sm={6} md={6} lg={6}>
           <nav>
             <ul className={classes.navUl}>
               <li className={classes.navLinks}>
@@ -109,7 +114,7 @@ function Header() {
             </ul>
           </nav>
         </Grid>
-        <Grid item xs={3} sm={3} md={3} lg={3} className="login-btns">
+        <Grid item xs={3} sm={3} md={3} lg={3}>
           <ul className={classes.loginBtnsUl}>
             <li className={classes.loginBtnsLi}>
               <a href="#" title="Login" className={classes.loginBtnsAnchor}>Login</a>

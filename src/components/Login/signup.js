@@ -38,6 +38,11 @@ const useStyles = makeStyles(theme => ({
   },
   loginHeaderLink: {
     textAlign: "right",
+    '& a': {
+      '&:hover': {
+        textDecoration: 'underline'
+      }
+    },
     ["@media (max-width:750px)"]: {
       maxWidth: "100%",
       flexBasis: "100%",
@@ -112,7 +117,9 @@ const useStyles = makeStyles(theme => ({
   githubBtn: {
     width: "100%",
     padding: "12px 0",
-    border: "none",
+    borderWidth: 1,
+    borderStyle: 'solid',
+    borderColor: '#333',
     borderRadius: 4,
     margin: "11px 0 15px",
     display: "flex",
@@ -124,9 +131,16 @@ const useStyles = makeStyles(theme => ({
     fontSize: "14px",
     letterSpacing: "1.25px",
     textTransform: "uppercase",
+    transition: '0.3s',
     "& i": {
       fontSize: 24,
       marginRight: 5
+    },
+    '&:hover':{
+      backgroundColor: '#fff',
+      borderColor: '#333',
+      color: '#333',
+      transion: '.3s'
     }
   },
   horizontalLine: {
@@ -137,7 +151,8 @@ const useStyles = makeStyles(theme => ({
     textAlign: "center",
     "&::before": {
       content: '" "',
-      display: "block",
+      display: "inline-block",
+      verticalAlign:'middle',
       width: 160,
       height: 1,
       backgroundColor: "#F5F7F8",
@@ -145,7 +160,8 @@ const useStyles = makeStyles(theme => ({
     },
     "&::after": {
       content: '" "',
-      display: "block",
+      display: "inline-block",
+      verticalAlign:'middle',
       width: 160,
       height: 1,
       marginLeft: 10,
@@ -217,13 +233,20 @@ const useStyles = makeStyles(theme => ({
   formButton: {
     width: "100%",
     padding: "13px 0",
-    border: "none",
+    border: 1,
+    borderStyle: 'solid',
+    borderColor: '#4086ff',
     borderRadius: 4,
     backgroundColor: "#4086ff",
     color: "#fff",
     cursor: "pointer",
     fontSize: "14px",
-    textTransform: "uppercase"
+    textTransform: "uppercase",
+    '&:hover':{
+      borderColor: '#4086ff',
+      backgroundColor: '#fff',
+      color: '#4086ff'
+    }
   }
 }));
 
@@ -239,27 +262,16 @@ function SignUp() {
             </a>
           </h1>
         </Grid>
-        <Grid
-          item
-          xs={12}
-          sm={6}
-          md={6}
-          lg={6}
-          className={classes.loginHeaderLink}
-        >
-          <p>
-            Already have an account?{" "}
-            <a href="#" title="Signup">
-              Login
-            </a>
+        <Grid item xs={12} sm={6} md={6} lg={6} className={classes.loginHeaderLink}>
+          <p>Already have an account?{" "}
+            <a href="#" title="Signup">Login</a>
           </p>
         </Grid>
       </Grid>
       <Grid container spacing={24}>
         <Grid item xs={12} sm={12} md={6} lg={6} className={classes.signupInfo}>
           <h2>Sign up for your free account in minutes</h2>
-          <p>
-            Use your Github account to easily get started, or fill out the form.
+          <p>Use your Github account to easily get started, or fill out the form.
             Get free credits for the first month and continue with your
             perferred wallet or credit card.
           </p>
@@ -270,17 +282,13 @@ function SignUp() {
             </li>
             <li>
               <i className="fas fa-check-circle"></i>
-              <p>
-                Get 100 free credits to try out any of the AI services
-                available. Easily refill your credits anytime.
+              <p>Get 100 free credits to try out any of the AI services available. Easily refill your credits anytime. 
               </p>
             </li>
             <li>
               <i className="fas fa-check-circle"></i>
-              <p>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-                eiusmod tempor incididunt ut labore et dolore magna aliqua.
-              </p>
+              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+                eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
             </li>
           </ul>
         </Grid>

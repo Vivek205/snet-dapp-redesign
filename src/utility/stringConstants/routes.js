@@ -1,6 +1,7 @@
 const Routes = {
   SIGNUP: "signup",
   LOGIN: "login",
+  VERIFY: "verfiy",
   AI_MARKETPLACE: "aimarketplace"
 };
 

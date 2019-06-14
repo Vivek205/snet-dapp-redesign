@@ -224,7 +224,10 @@ class SignUp extends Component {
         name: username
       }
     })
-      .then(user => console.log("user", user))
+      .then(user => {
+        console.log("user", user);
+        this.props.history.push(Routes.VERIFY);
+      })
       .catch(err => alert(err.message));
   };
   shouldSubmitBeDisabled = () => {

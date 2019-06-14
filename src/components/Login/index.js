@@ -1,10 +1,10 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
+
 // material components
-import { makeStyles, withStyles } from "@material-ui/styles";
+import { withStyles } from "@material-ui/styles";
 import Grid from "@material-ui/core/Grid";
 import TextField from "@material-ui/core/TextField";
-import FormControlLabel from "@material-ui/core/FormControlLabel";
 
 // images
 import Logo from "../../assets/images/LoginLogo.png";
@@ -156,6 +156,12 @@ class Login extends Component {
         this.props.history.push(Routes.AI_MARKETPLACE);
       })
       .catch(err => {
+        if (err.code === "UserNotConfirmedException") {
+          this.props.history.push(Routes.VERIFY, {
+            username
+          });
+          return;
+        }
         alert(err.message);
       });
   };

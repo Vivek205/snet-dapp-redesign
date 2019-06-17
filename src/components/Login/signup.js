@@ -1,53 +1,25 @@
 import React, { Component } from "react";
-import { Link } from "react-router-dom";
+import { Auth } from "aws-amplify";
 
 // material components
 import Grid from "@material-ui/core/Grid";
 import TextField from "@material-ui/core/TextField";
+import { withStyles } from "@material-ui/styles";
+
+// internal components
+import Header from "../common/LoginOnboardingHeader/index.js";
+import StyledButton from "../common/StyledButton/index.js";
+import ErrorMsgBox from "../common/ErrorMsgBox/index.js";
 
 // images
-import Logo from "../../assets/images/LoginLogo.png";
 
-import { withStyles } from "@material-ui/styles";
-import { Auth } from "aws-amplify";
 import Routes from "../../utility/stringConstants/routes";
 
 const useStyles = theme => ({
-  wrapper: {
+  signupMainContent: {
     width: "71%",
     paddingBottom: 50,
     margin: "0 auto"
-  },
-  loginHeader: {
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "space-between",
-    flexBasis: "100%",
-    padding: "30px 0",
-    "& h1": {
-      margin: 0
-    },
-    "& p": {
-      color: "#9b9b9b",
-      fontSize: "16px"
-    },
-    "& a": {
-      color: "#4086ff",
-      textDecoration: "none"
-    }
-  },
-  loginHeaderLink: {
-    textAlign: "right",
-    '& a': {
-      '&:hover': {
-        textDecoration: 'underline'
-      }
-    },
-    ["@media (max-width:750px)"]: {
-      maxWidth: "100%",
-      flexBasis: "100%",
-      textAlign: "left"
-    }
   },
   signupContent: {
     width: "71%",
@@ -66,7 +38,7 @@ const useStyles = theme => ({
     "& p": {
       margin: "40px 0 40px",
       color: "#616161",
-      fontFamily: "Raleway",
+      fontFamily: theme.typography.secondary.main,
       fontSize: 20,
       lineHeight: "30px"
     },
@@ -85,7 +57,7 @@ const useStyles = theme => ({
       },
       "& p": {
         color: "#666",
-        fontFamily: "Raleway",
+        fontFamily: theme.typography.secondary.main,
         fontSize: 16,
         letterSpacing: "0.29px",
         display: "inline-block",
@@ -100,49 +72,24 @@ const useStyles = theme => ({
     width: 410,
     padding: "20px 20px 30px",
     margin: "0 auto",
-    boxShadow: "0 1px 1px 0 rgba(0,0,0,0.14), 0 2px 1px -1px rgba(0,0,0,0.14), 0 1px 3px 0 rgba(0,0,0,0.2)",
+    boxShadow:
+      "0 1px 1px 0 rgba(0,0,0,0.14), 0 2px 1px -1px rgba(0,0,0,0.14), 0 1px 3px 0 rgba(0,0,0,0.2)",
     "& h3": {
-      margin: 0,
+      margin: "0 0 11px",
       color: "rgba(0,0,0,0.6)",
       fontSize: 16,
       letterSpacing: "0.29px",
       textAlign: "center",
       textTransform: "uppercase"
     },
+    "& button": { width: "100%" },
     ["@media (max-width:960px)"]: {
       width: "95%",
       marginTop: 35
     }
   },
-   githubBtn: {
-    width: "100%",
-    padding: "12px 0",
-    borderWidth: 1,
-    borderStyle: 'solid',
-    borderColor: '#333',
-    borderRadius: 4,
-    margin: "11px 0 15px",
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-    backgroundColor: "#333",
-    color: "#fff",
-    cursor: "pointer",
-    fontSize: "14px",
-    letterSpacing: "1.25px",
-    textTransform: "uppercase",
-    transition: '0.3s',
-    "& i": {
-      fontSize: 24,
-      marginRight: 5
-    },
-    '&:hover':{
-      backgroundColor: '#fff',
-      borderColor: '#333',
-      color: '#333',
-    }
-  },
   horizontalLine: {
+    marginTop: 15,
     display: "block",
     color: "rgba(0,0,0,0.6)",
     fontSize: 14,
@@ -151,7 +98,7 @@ const useStyles = theme => ({
     "&::before": {
       content: '" "',
       display: "inline-block",
-      verticalAlign:'middle',
+      verticalAlign: "middle",
       width: 160,
       height: 1,
       backgroundColor: "#F5F7F8",
@@ -160,66 +107,39 @@ const useStyles = theme => ({
     "&::after": {
       content: '" "',
       display: "inline-block",
-      verticalAlign:'middle',
+      verticalAlign: "middle",
       width: 160,
       height: 1,
       marginLeft: 10,
       backgroundColor: "#F5F7F8"
     }
   },
-  errorText: {
-    borderWidth: 1,
-    borderStyle: "solid",
-    borderColor: "rgba(208,2,27,0.2)",
-    padding: "13px 20px",
-    margin: "20px 0 !important",
-    backgroundColor: "rgba(208,2,27,0.2)",
-    color: "rgba(0,0,0,.6)",
-    fontSize: "14px !important",
-    fontFamily: "Raleway",
-    textAlign: "left"
-  },
-  formButton: {
-    width: "100%",
-    padding: "13px 0",
-    border: 1,
-    borderStyle: 'solid',
-    borderColor: '#4086ff',
-    borderRadius: 4,
-    backgroundColor: "#4086ff",
-    color: "#fff",
-    cursor: "pointer",
-    fontSize: "14px",
-    textTransform: "uppercase",
-    '&:hover':{
-      borderColor: '#4086ff',
-      backgroundColor: '#fff',
-      color: '#4086ff'
-    }
-  },
   textField: {
     width: "100%",
     marginBottom: 0,
     display: "inline-block",
+    "& label": {
+      fontFamily: theme.typography.primary.main
+    },
     "& div": {
       width: "100%"
     }
   },
   charCount: {
     color: "rgba(0,0,0,0.6)",
-    fontFamily: "Raleway",
+    fontFamily: theme.typography.secondary.main,
     fontSize: "12.17px",
     letterSpacing: "0.4px"
   },
   usernameError: {
     color: "#B00020",
-    fontFamily: "Raleway",
+    fontFamily: theme.typography.secondary.main,
     fontSize: "12.17px",
     letterSpacing: "0.4px"
   },
   passwordTxt: {
     color: "rgba(0,0,0,0.6)",
-    fontFamily: "Raleway",
+    fontFamily: theme.typography.secondary.main,
     fontSize: "12.17px",
     letterSpacing: "0.4px"
   },
@@ -230,11 +150,11 @@ const useStyles = theme => ({
       color: "#666"
     },
     "& a": {
-      color: "#4086ff",
+      color: theme.palette.primary.main,
       fontSize: 14,
       textDecoration: "none"
     }
-  },
+  }
 });
 
 class SignUp extends Component {
@@ -244,21 +164,27 @@ class SignUp extends Component {
     password: "",
     hasAcceptedTerms: false
   };
+
   handleUsername = event => {
     this.setState({ username: event.currentTarget.value });
   };
+
   handleEmail = event => {
     this.setState({ email: event.currentTarget.value });
   };
+
   handlePassword = event => {
     this.setState({ password: event.currentTarget.value });
   };
+
   handleAcceptedTerms = () => {
     this.setState(prevState => ({
       hasAcceptedTerms: !prevState.hasAcceptedTerms
     }));
   };
+
   handleSubmit = event => {
+    console.log("create account clicked");
     event.preventDefault();
     event.stopPropagation();
     const { username, password, email } = this.state;
@@ -276,6 +202,7 @@ class SignUp extends Component {
       })
       .catch(err => alert(err.message));
   };
+
   shouldSubmitBeDisabled = () => {
     const { username, email, password, hasAcceptedTerms } = this.state;
     if ((username !== "", email !== "", password !== "", hasAcceptedTerms)) {
@@ -283,33 +210,14 @@ class SignUp extends Component {
     }
     return true;
   };
+
   render() {
     const { username, email, password, hasAcceptedTerms } = this.state;
     const { classes } = this.props;
     return (
-      <div className={classes.wrapper}>
-        <Grid container spacing={24} className={classes.loginHeader}>
-          <Grid item xs={12} sm={6} md={6} lg={6}>
-            <h1>
-              <a href="#" title="SingularityNET">
-                <img src={Logo} alt="SingularityNET" />
-              </a>
-            </h1>
-          </Grid>
-          <Grid
-            item
-            xs={12}
-            sm={6}
-            md={6}
-            lg={6}
-            className={classes.loginHeaderLink}
-          >
-            <p>
-              Already have an account? <Link to={Routes.LOGIN}>Login</Link>
-            </p>
-          </Grid>
-        </Grid>
-        <Grid container spacing={24}>
+      <div>
+        <Header title="Already have an account?" linkText="Login" />
+        <Grid container spacing={24} className={classes.signupMainContent}>
           <Grid
             item
             xs={12}
@@ -322,7 +230,7 @@ class SignUp extends Component {
             <p>
               Use your Github account to easily get started, or fill out the
               form. Get free credits for the first month and continue with your
-              perferred wallet or credit card.
+              perferred wallet or credit card.{" "}
             </p>
             <ul>
               <li>
@@ -333,7 +241,7 @@ class SignUp extends Component {
                 <i className="fas fa-check-circle"></i>
                 <p>
                   Get 100 free credits to try out any of the AI services
-                  available. Easily refill your credits anytime.
+                  available. Easily refill your credits anytime.{" "}
                 </p>
               </li>
               <li>
@@ -348,15 +256,16 @@ class SignUp extends Component {
           <Grid item xs={12} sm={12} md={6} lg={6}>
             <form noValidate autoComplete="off" className={classes.signupForm}>
               <h3>sign up with </h3>
-              <button className={classes.githubBtn}>
-                <i className="fab fa-github"></i>
-                github
-              </button>
+              <StyledButton
+                btnText="github"
+                type="black"
+                iconClass="fab fa-github"
+              />
               <span className={classes.horizontalLine}>or</span>
               <div>
                 <TextField
                   id="outlined-user-name"
-                  label="UserName"
+                  label="Username"
                   className={classes.textField}
                   value={username}
                   onChange={this.handleUsername}
@@ -409,14 +318,13 @@ class SignUp extends Component {
                   </a>
                 </p>
               </div>
-              <p className={classes.errorText}>error state message</p>
-              <button
-                className={classes.formButton}
+              <ErrorMsgBox errorMsg="error state message" />
+              <StyledButton
+                type="blue"
+                btnText="Sign up for free credits"
                 disabled={this.shouldSubmitBeDisabled()}
                 onClick={this.handleSubmit}
-              >
-                create account
-              </button>
+              />
             </form>
           </Grid>
         </Grid>

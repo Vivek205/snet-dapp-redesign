@@ -1,42 +1,58 @@
-import React, { Component } from 'react';
+import React from "react";
 
 // Material UI imports
-import { makeStyles } from '@material-ui/styles';
-import Grid from '@material-ui/core/Grid';
-import FormControl from '@material-ui/core/FormControl';
-import InputLabel from '@material-ui/core/InputLabel';
-import Select from '@material-ui/core/Select';
+import { makeStyles } from "@material-ui/styles";
+import FormControl from "@material-ui/core/FormControl";
+import InputLabel from "@material-ui/core/InputLabel";
+import Select from "@material-ui/core/Select";
 
 const useStyles = makeStyles(theme => ({
   formControl: {
-    backgroundColor: theme.palette.primary
+    "& label": {
+      color: theme.palette.primary.main,
+      fontSize: 18,
+      "& div": {
+        "&::before": {
+          borderBottom: "none"
+        }
+      }
+    },
+    "& svg": {
+      right: "-15px",
+      color: theme.palette.primary.main
+    },
+    "& label + div": {
+      "&::before": {
+        borderBottom: "none"
+      }
+    }
   }
-}))
+}));
 
-function StyledDropdown (props) {
+function StyledDropdown(props) {
   const classes = useStyles();
 
-   const [state, setState] = React.useState({
-    featured: '',
+  const [state, setState] = React.useState({
+    featured: ""
   });
 
-    const handleChange = name => event => {
+  const handleChange = name => event => {
     setState({
       ...state,
-      [name]: event.target.value,
+      [name]: event.target.value
     });
   };
 
   return (
     <FormControl className={classes.formControl}>
-      <InputLabel htmlFor="featured-label">Featured</InputLabel>
+      <InputLabel htmlFor="featured-label">{props.labelTxt}</InputLabel>
       <Select
         native
         value={state.featured}
-        onChange={handleChange('featured')}
+        onChange={handleChange("featured")}
         inputProps={{
-          name: 'featured',
-          id: 'featured-label',
+          name: "featured",
+          id: "featured-label"
         }}
       >
         <option value="" />

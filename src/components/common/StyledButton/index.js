@@ -8,7 +8,8 @@ import classNames from "classnames";
 
 const buttonColor = {
   blue: "blueBg",
-  gradient: "classTwo"
+  gradient: "gradientBg",
+  black: "blackBg"
 };
 
 const useStyles = makeStyles(theme => ({
@@ -17,22 +18,35 @@ const useStyles = makeStyles(theme => ({
     borderStyle: "solid",
     borderColor: "transparent",
     padding: "13px 28px 11px",
-    backgroundColor: "#4086FF",
     color: "#fff",
     textTransform: "uppercase",
-    fontFamily: "OpenSans",
+    fontFamily: theme.typography.primary.main,
     fontWeight: 600,
     letterSpacing: "1.25px",
     lineHeight: "16px",
-    // '&.blueBg':{
-    //   backgroundColor: '#4086FF'
-    // },
+    "&:disabled": {
+      backgroundColor: "#e6e6e6",
+      color: "#bcbcbc"
+    }
+  },
+  blueBg: {
+    backgroundColor: theme.palette.primary.main,
     "&:hover": {
       backgroundColor: "#fff",
-      borderWidth: 1,
-      borderStyle: "solid",
-      borderColor: "#4086FF",
-      color: "#4086FF"
+      borderColor: theme.palette.primary.main,
+      color: theme.palette.primary.main
+    }
+  },
+  blackBg: {
+    backgroundColor: "#333",
+    "& i": {
+      fontSize: 24,
+      marginRight: 5
+    },
+    "&:hover": {
+      backgroundColor: "#fff",
+      borderColor: "#333",
+      color: "#333"
     }
   }
 }));
@@ -42,11 +56,17 @@ function StyledButton(props) {
 
   return (
     <>
-      <Button className={classNames("styledButton", buttonColor[props.type])}>
+      <Button
+        className={classNames(
+          classes.styledButton,
+          classes[buttonColor[props.type]]
+        )}
+        disabled={props.disabled}
+        onClick={props.onClick}
+      >
+        {props.iconClass ? <i className={props.iconClass}></i> : null}
         {props.btnText}
       </Button>
-
-      <Button className={classes.styledButton}>{props.btnText}</Button>
     </>
   );
 }

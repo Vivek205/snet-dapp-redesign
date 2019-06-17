@@ -64,7 +64,7 @@ function StyledButton(props) {
         disabled={props.disabled}
         onClick={props.onClick}
       >
-        {props.hasIcon ? <i className={props.iconClass}></i> : null}
+        {props.iconClass ? <i className={props.iconClass}></i> : null}
         {props.btnText}
       </Button>
     </>

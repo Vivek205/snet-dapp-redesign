@@ -1,14 +1,14 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 
-import Routes from "../../utility/stringConstants/routes";
+import Routes from "../../../utility/stringConstants/routes";
 
 // material components
 import { withStyles } from "@material-ui/styles";
 import Grid from "@material-ui/core/Grid";
 
 // images
-import Logo from "../../assets/images/LoginLogo.png";
+import Logo from "../../../assets/images/LoginLogo.png";
 
 const useStyles = theme => ({
   loginHeader: {
@@ -49,7 +49,7 @@ const useStyles = theme => ({
   }
 });
 
-class Header extends Component {
+class LoginOnboardingHeader extends Component {
   render() {
     const { classes } = this.props;
     return (
@@ -80,4 +80,4 @@ class Header extends Component {
     );
   }
 }
-export default withStyles(useStyles)(Header);
+export default withStyles(useStyles)(LoginOnboardingHeader);

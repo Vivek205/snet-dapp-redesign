@@ -7,7 +7,7 @@ import Grid from "@material-ui/core/Grid";
 import TextField from "@material-ui/core/TextField";
 
 // internal components
-import Header from "./header.js";
+import Header from "../common/LoginOnboardingHeader/index.js";
 import StyledButton from "../common/StyledButton/index.js";
 import ErrorMsgBox from "../common/ErrorMsgBox/index.js";
 
@@ -150,7 +150,6 @@ class Login extends Component {
             <StyledButton
               btnText="github"
               type="black"
-              hasIcon={true}
               iconClass="fab fa-github"
             />
             <span className={classes.horizontalLine}>or</span>

@@ -6,7 +6,7 @@ import TextField from "@material-ui/core/TextField";
 import { withStyles } from "@material-ui/styles";
 
 // internal components
-import Header from "./header.js";
+import Header from "../common/LoginOnboardingHeader/index.js";
 import StyledButton from "../common/StyledButton";
 
 // images

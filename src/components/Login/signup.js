@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import { Link } from "react-router-dom";
 import { Auth } from "aws-amplify";
 
 // material components
@@ -13,7 +12,6 @@ import StyledButton from "../common/StyledButton/index.js";
 import ErrorMsgBox from "../common/ErrorMsgBox/index.js";
 
 // images
-import Logo from "../../assets/images/LoginLogo.png";
 
 import Routes from "../../utility/stringConstants/routes";
 
@@ -40,7 +38,7 @@ const useStyles = theme => ({
     "& p": {
       margin: "40px 0 40px",
       color: "#616161",
-      fontFamily: theme.typography.primary.main,
+      fontFamily: theme.typography.secondary.main,
       fontSize: 20,
       lineHeight: "30px"
     },
@@ -59,7 +57,7 @@ const useStyles = theme => ({
       },
       "& p": {
         color: "#666",
-        fontFamily: "Raleway",
+        fontFamily: theme.typography.secondary.main,
         fontSize: 16,
         letterSpacing: "0.29px",
         display: "inline-block",
@@ -77,7 +75,7 @@ const useStyles = theme => ({
     boxShadow:
       "0 1px 1px 0 rgba(0,0,0,0.14), 0 2px 1px -1px rgba(0,0,0,0.14), 0 1px 3px 0 rgba(0,0,0,0.2)",
     "& h3": {
-      margin: 0,
+      margin: "0 0 11px",
       color: "rgba(0,0,0,0.6)",
       fontSize: 16,
       letterSpacing: "0.29px",
@@ -90,35 +88,8 @@ const useStyles = theme => ({
       marginTop: 35
     }
   },
-  githubBtn: {
-    width: "100%",
-    padding: "12px 0",
-    borderWidth: 1,
-    borderStyle: "solid",
-    borderColor: "#333",
-    borderRadius: 4,
-    margin: "11px 0 15px",
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-    backgroundColor: "#333",
-    color: "#fff",
-    cursor: "pointer",
-    fontSize: "14px",
-    letterSpacing: "1.25px",
-    textTransform: "uppercase",
-    transition: "0.3s",
-    "& i": {
-      fontSize: 24,
-      marginRight: 5
-    },
-    "&:hover": {
-      backgroundColor: "#fff",
-      borderColor: "#333",
-      color: "#333"
-    }
-  },
   horizontalLine: {
+    marginTop: 15,
     display: "block",
     color: "rgba(0,0,0,0.6)",
     fontSize: 14,
@@ -147,25 +118,28 @@ const useStyles = theme => ({
     width: "100%",
     marginBottom: 0,
     display: "inline-block",
+    "& label": {
+      fontFamily: theme.typography.primary.main
+    },
     "& div": {
       width: "100%"
     }
   },
   charCount: {
     color: "rgba(0,0,0,0.6)",
-    fontFamily: "Raleway",
+    fontFamily: theme.typography.secondary.main,
     fontSize: "12.17px",
     letterSpacing: "0.4px"
   },
   usernameError: {
     color: "#B00020",
-    fontFamily: "Raleway",
+    fontFamily: theme.typography.secondary.main,
     fontSize: "12.17px",
     letterSpacing: "0.4px"
   },
   passwordTxt: {
     color: "rgba(0,0,0,0.6)",
-    fontFamily: "Raleway",
+    fontFamily: theme.typography.secondary.main,
     fontSize: "12.17px",
     letterSpacing: "0.4px"
   },
@@ -256,7 +230,7 @@ class SignUp extends Component {
             <p>
               Use your Github account to easily get started, or fill out the
               form. Get free credits for the first month and continue with your
-              perferred wallet or credit card.
+              perferred wallet or credit card.{" "}
             </p>
             <ul>
               <li>
@@ -267,7 +241,7 @@ class SignUp extends Component {
                 <i className="fas fa-check-circle"></i>
                 <p>
                   Get 100 free credits to try out any of the AI services
-                  available. Easily refill your credits anytime.
+                  available. Easily refill your credits anytime.{" "}
                 </p>
               </li>
               <li>
@@ -282,15 +256,17 @@ class SignUp extends Component {
           <Grid item xs={12} sm={12} md={6} lg={6}>
             <form noValidate autoComplete="off" className={classes.signupForm}>
               <h3>sign up with </h3>
-              <button className={classes.githubBtn}>
-                <i className="fab fa-github"></i>
-                github
-              </button>
+              <StyledButton
+                btnText="github"
+                type="black"
+                hasIcon={true}
+                iconClass="fab fa-github"
+              />
               <span className={classes.horizontalLine}>or</span>
               <div>
                 <TextField
                   id="outlined-user-name"
-                  label="UserName"
+                  label="Username"
                   className={classes.textField}
                   value={username}
                   onChange={this.handleUsername}

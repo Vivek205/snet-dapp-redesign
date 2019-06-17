@@ -13,7 +13,7 @@ const useStyles = makeStyles(theme => ({
     backgroundColor: "rgba(208,2,27,0.2)",
     color: "rgba(0,0,0,.6)",
     fontSize: "14px !important",
-    fontFamily: "Raleway",
+    fontFamily: theme.typography.secondary.main,
     textAlign: "left"
   }
 }));

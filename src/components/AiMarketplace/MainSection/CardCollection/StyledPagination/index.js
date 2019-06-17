@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React from "react";
 
 import Pagination from "material-ui-flat-pagination";
 // Material UI imports
@@ -8,7 +8,6 @@ import FormControl from "@material-ui/core/FormControl";
 import Select from "@material-ui/core/Select";
 import OutlinedInput from "@material-ui/core/OutlinedInput";
 import MenuItem from "@material-ui/core/MenuItem";
-import InputLabel from "@material-ui/core/InputLabel";
 
 const useStyles = makeStyles(theme => ({
   paginationContainer: {

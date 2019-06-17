@@ -30,14 +30,14 @@ const useStyles = makeStyles(theme => ({
     color: theme.palette.secondary.main,
     textTransform: "uppercase",
     letterSpacing: 2,
-    fontFamily: "OpenSans"
+    fontFamily: theme.typography.primary.main
   },
   cardSubheader: {
     color: "rgba(0,0,0,.87)",
     fontWeight: 600,
     fontSize: 20,
     letterSpacing: 0.25,
-    fontFamily: "OpenSans"
+    fontFamily: theme.typography.primary.main
   },
   CardMedia: {
     height: 175,
@@ -46,7 +46,7 @@ const useStyles = makeStyles(theme => ({
   cardContent: { padding: "0 13px" },
   cardTypograpy: {
     color: "rgba(0,0,0,0.6)",
-    fontFamily: "Raleway",
+    fontFamily: theme.typography.secondary.main,
     fontSize: 14,
     lineHeight: "20px"
   },
@@ -56,7 +56,7 @@ const useStyles = makeStyles(theme => ({
   },
   detailsBtn: {
     padding: 0,
-    fontFamily: "OpenSans",
+    fontFamily: theme.typography.primary.main,
     fontSize: 14,
     fontWeight: 600,
     letterSpacing: "1.25px",

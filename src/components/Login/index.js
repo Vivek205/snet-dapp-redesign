@@ -35,7 +35,7 @@ const useStyles = theme => ({
     boxShadow:
       "0 1px 1px 0 rgba(0,0,0,0.14), 0 2px 1px -1px rgba(0,0,0,0.14), 0 1px 3px 0 rgba(0,0,0,0.2)",
     "& h3": {
-      margin: 0,
+      margin: "0 0 11px",
       color: "rgba(0,0,0,0.6)",
       fontSize: 16,
       letterSpacing: "0.29px",
@@ -48,35 +48,8 @@ const useStyles = theme => ({
       width: "80%"
     }
   },
-  githubBtn: {
-    width: "100%",
-    padding: "12px 0",
-    borderWidth: 1,
-    borderStyle: "solid",
-    borderColor: "#333",
-    borderRadius: 4,
-    margin: "11px 0 15px",
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-    backgroundColor: "#333",
-    color: "#fff",
-    cursor: "pointer",
-    fontSize: "14px",
-    letterSpacing: "1.25px",
-    textTransform: "uppercase",
-    transition: "0.3s",
-    "& i": {
-      fontSize: 24,
-      marginRight: 5
-    },
-    "&:hover": {
-      backgroundColor: "#fff",
-      borderColor: "#333",
-      color: "#333"
-    }
-  },
   horizontalLine: {
+    marginTop: 15,
     display: "block",
     color: "rgba(0,0,0,0.6)",
     fontSize: 14,
@@ -102,7 +75,10 @@ const useStyles = theme => ({
     }
   },
   textField: {
-    width: "100%"
+    width: "100%",
+    "& label": {
+      fontFamily: theme.typography.primary.main
+    }
   },
   checkboxSection: {
     marginTop: 10,
@@ -159,7 +135,7 @@ class Login extends Component {
     const { username, password } = this.state;
     return (
       <Grid container spacing={24}>
-        <Header title="Doesn't have an account?" linkText="SignUp" />
+        <Header title="New to singularityNET?" linkText="SignUp" />
         <Grid
           item
           xs={12}
@@ -171,14 +147,16 @@ class Login extends Component {
           <h2>Welcome Back</h2>
           <form noValidate autoComplete="off" className={classes.loginForm}>
             <h3>log in with </h3>
-            <button className={classes.githubBtn}>
-              <i className="fab fa-github"></i>
-              github
-            </button>
+            <StyledButton
+              btnText="github"
+              type="black"
+              hasIcon={true}
+              iconClass="fab fa-github"
+            />
             <span className={classes.horizontalLine}>or</span>
             <TextField
               id="outlined-user-name"
-              label="UserName"
+              label="UserName or Email"
               className={classes.textField}
               // value={this.state.UserName}
               // onChange={this.handleUserNameChange('name')}

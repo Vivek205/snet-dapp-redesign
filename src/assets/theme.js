@@ -1,5 +1,4 @@
 import { createMuiTheme } from "@material-ui/core/styles";
-import { indigo, blue } from "material-ui/colors";
 
 const customPrimaryBlue = "#4086ff";
 const customSecodaryTextColor = "#9b9b9b";
@@ -15,9 +14,12 @@ const theme = createMuiTheme({
   },
   typography: {
     primary: {
-      main: ["Raleway"]
+      main: ["OpenSans"]
     },
     secondary: {
+      main: ["Raleway"]
+    },
+    tertiary: {
       main: ["Roboto"]
     }
   }

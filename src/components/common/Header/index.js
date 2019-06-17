@@ -81,7 +81,6 @@ const useStyles = makeStyles(theme => ({
   },
   loginBtnsAnchor: {
     textDecoration: "none",
-    fontFamily: "sans-serif",
     fontSize: 20,
     color: "#fff"
   },

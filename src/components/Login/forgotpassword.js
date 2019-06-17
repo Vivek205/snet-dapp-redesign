@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import { Link } from "react-router-dom";
 
 // material components
 import Grid from "@material-ui/core/Grid";
@@ -11,7 +10,6 @@ import Header from "./header.js";
 import StyledButton from "../common/StyledButton";
 
 // images
-import Logo from "../../assets/images/LoginLogo.png";
 import Routes from "../../utility/stringConstants/routes";
 import { Auth } from "aws-amplify";
 import Session from "../../utility/stringConstants/session";
@@ -28,7 +26,7 @@ const useStyles = theme => ({
       margin: "17px 0 0",
       color: "#616161",
       fontSize: "22px",
-      fontFamily: "Raleway"
+      fontFamily: theme.typography.secondary.main
     },
     ["@media (max-width:527px)"]: {
       width: "75%",
@@ -61,7 +59,7 @@ const useStyles = theme => ({
     backgroundColor: "rgba(208,2,27,0.2)",
     color: "rgba(0,0,0,.6)",
     fontSize: "14px !important",
-    fontFamily: "Raleway",
+    fontFamily: theme.typography.secondary.main,
     textAlign: "left"
   }
 });
@@ -113,7 +111,7 @@ class ForgotPassword extends Component {
           <form noValidate autoComplete="off" className={classes.forgotPwdForm}>
             <TextField
               id="outlined-username-input"
-              label="User Name"
+              label="Email"
               className={classes.textField}
               type="text"
               name="username"

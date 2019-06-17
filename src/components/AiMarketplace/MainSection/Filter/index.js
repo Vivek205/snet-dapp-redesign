@@ -29,7 +29,7 @@ const useStyles = makeStyles(theme => ({
     fontSize: 14,
     outline: "none",
     textTransform: "uppercase",
-    fontFamily: "OpenSans !important"
+    fontFamily: theme.typography.primary.main
   },
   filterExpansionPanel: {
     boxShadow: "none",
@@ -38,7 +38,7 @@ const useStyles = makeStyles(theme => ({
   filtersHeadingTitle: {
     color: "#4a4a4a",
     fontSize: 16,
-    fontFamily: "OpenSans"
+    fontFamily: theme.typography.primary.main
   },
   filterDetails: {
     backgroundColor: "#fff",
@@ -54,11 +54,11 @@ const useStyles = makeStyles(theme => ({
   },
   count: {
     color: "#666",
-    fontFamily: "Roboto",
+    fontFamily: theme.typography.tertiary.main,
     fontSize: 14
   },
   checkboxLabel: {
-    fontFamily: "OpenSans",
+    fontFamily: theme.typography.primary.main,
     fontSize: 14,
     letterSpacing: "0.25px",
     color: "#666"

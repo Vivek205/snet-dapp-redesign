@@ -1,15 +1,19 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
+import { Auth } from "aws-amplify";
 
 // material components
 import Grid from "@material-ui/core/Grid";
 import TextField from "@material-ui/core/TextField";
+import { withStyles } from "@material-ui/styles";
+
+// internal components
+import StyledButton from "../common/StyledButton/index.js";
+import ErrorMsgBox from "../common/ErrorMsgBox/index.js";
 
 // images
 import Logo from "../../assets/images/LoginLogo.png";
 
-import { withStyles } from "@material-ui/styles";
-import { Auth } from "aws-amplify";
 import Routes from "../../utility/stringConstants/routes";
 
 const useStyles = theme => ({
@@ -38,9 +42,9 @@ const useStyles = theme => ({
   },
   loginHeaderLink: {
     textAlign: "right",
-    '& a': {
-      '&:hover': {
-        textDecoration: 'underline'
+    "& a": {
+      "&:hover": {
+        textDecoration: "underline"
       }
     },
     ["@media (max-width:750px)"]: {
@@ -100,7 +104,8 @@ const useStyles = theme => ({
     width: 410,
     padding: "20px 20px 30px",
     margin: "0 auto",
-    boxShadow: "0 1px 1px 0 rgba(0,0,0,0.14), 0 2px 1px -1px rgba(0,0,0,0.14), 0 1px 3px 0 rgba(0,0,0,0.2)",
+    boxShadow:
+      "0 1px 1px 0 rgba(0,0,0,0.14), 0 2px 1px -1px rgba(0,0,0,0.14), 0 1px 3px 0 rgba(0,0,0,0.2)",
     "& h3": {
       margin: 0,
       color: "rgba(0,0,0,0.6)",
@@ -109,17 +114,18 @@ const useStyles = theme => ({
       textAlign: "center",
       textTransform: "uppercase"
     },
+    "& button": { width: "100%" },
     ["@media (max-width:960px)"]: {
       width: "95%",
       marginTop: 35
     }
   },
-   githubBtn: {
+  githubBtn: {
     width: "100%",
     padding: "12px 0",
     borderWidth: 1,
-    borderStyle: 'solid',
-    borderColor: '#333',
+    borderStyle: "solid",
+    borderColor: "#333",
     borderRadius: 4,
     margin: "11px 0 15px",
     display: "flex",
@@ -131,15 +137,15 @@ const useStyles = theme => ({
     fontSize: "14px",
     letterSpacing: "1.25px",
     textTransform: "uppercase",
-    transition: '0.3s',
+    transition: "0.3s",
     "& i": {
       fontSize: 24,
       marginRight: 5
     },
-    '&:hover':{
-      backgroundColor: '#fff',
-      borderColor: '#333',
-      color: '#333',
+    "&:hover": {
+      backgroundColor: "#fff",
+      borderColor: "#333",
+      color: "#333"
     }
   },
   horizontalLine: {
@@ -151,7 +157,7 @@ const useStyles = theme => ({
     "&::before": {
       content: '" "',
       display: "inline-block",
-      verticalAlign:'middle',
+      verticalAlign: "middle",
       width: 160,
       height: 1,
       backgroundColor: "#F5F7F8",
@@ -160,41 +166,11 @@ const useStyles = theme => ({
     "&::after": {
       content: '" "',
       display: "inline-block",
-      verticalAlign:'middle',
+      verticalAlign: "middle",
       width: 160,
       height: 1,
       marginLeft: 10,
       backgroundColor: "#F5F7F8"
-    }
-  },
-  errorText: {
-    borderWidth: 1,
-    borderStyle: "solid",
-    borderColor: "rgba(208,2,27,0.2)",
-    padding: "13px 20px",
-    margin: "20px 0 !important",
-    backgroundColor: "rgba(208,2,27,0.2)",
-    color: "rgba(0,0,0,.6)",
-    fontSize: "14px !important",
-    fontFamily: "Raleway",
-    textAlign: "left"
-  },
-  formButton: {
-    width: "100%",
-    padding: "13px 0",
-    border: 1,
-    borderStyle: 'solid',
-    borderColor: '#4086ff',
-    borderRadius: 4,
-    backgroundColor: "#4086ff",
-    color: "#fff",
-    cursor: "pointer",
-    fontSize: "14px",
-    textTransform: "uppercase",
-    '&:hover':{
-      borderColor: '#4086ff',
-      backgroundColor: '#fff',
-      color: '#4086ff'
     }
   },
   textField: {
@@ -234,7 +210,7 @@ const useStyles = theme => ({
       fontSize: 14,
       textDecoration: "none"
     }
-  },
+  }
 });
 
 class SignUp extends Component {
@@ -244,21 +220,27 @@ class SignUp extends Component {
     password: "",
     hasAcceptedTerms: false
   };
+
   handleUsername = event => {
     this.setState({ username: event.currentTarget.value });
   };
+
   handleEmail = event => {
     this.setState({ email: event.currentTarget.value });
   };
+
   handlePassword = event => {
     this.setState({ password: event.currentTarget.value });
   };
+
   handleAcceptedTerms = () => {
     this.setState(prevState => ({
       hasAcceptedTerms: !prevState.hasAcceptedTerms
     }));
   };
+
   handleSubmit = event => {
+    console.log("create account clicked");
     event.preventDefault();
     event.stopPropagation();
     const { username, password, email } = this.state;
@@ -276,6 +258,7 @@ class SignUp extends Component {
       })
       .catch(err => alert(err.message));
   };
+
   shouldSubmitBeDisabled = () => {
     const { username, email, password, hasAcceptedTerms } = this.state;
     if ((username !== "", email !== "", password !== "", hasAcceptedTerms)) {
@@ -283,6 +266,7 @@ class SignUp extends Component {
     }
     return true;
   };
+
   render() {
     const { username, email, password, hasAcceptedTerms } = this.state;
     const { classes } = this.props;
@@ -409,14 +393,13 @@ class SignUp extends Component {
                   </a>
                 </p>
               </div>
-              <p className={classes.errorText}>error state message</p>
-              <button
-                className={classes.formButton}
+              <ErrorMsgBox errorMsg="error state message" />
+              <StyledButton
+                type="blue"
+                btnText="Sign up for free credits"
                 disabled={this.shouldSubmitBeDisabled()}
                 onClick={this.handleSubmit}
-              >
-                create account
-              </button>
+              />
             </form>
           </Grid>
         </Grid>

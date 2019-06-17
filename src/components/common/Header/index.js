@@ -1,86 +1,98 @@
-import React, { Component } from 'react';
+import React, { Component } from "react";
 
 // Material UI imports
-import { makeStyles } from '@material-ui/styles';
-import Grid from '@material-ui/core/Grid';
+import { makeStyles } from "@material-ui/styles";
+import Grid from "@material-ui/core/Grid";
 
-import StyledDropdown from '../StyledDropdown/index.js';
+import StyledDropdown from "../StyledDropdown/index.js";
 
 // import Images
-import Logo from '../../../assets/images/Logo.png';
+import Logo from "../../../assets/images/Logo.png";
 
 const useStyles = makeStyles(theme => ({
-  header: {    
-    width: '100%',
-    alignItems: 'center',
-    display: 'flex',
-    backgroundColor: '#220D3A',
-    padding: '15px 6%',
+  header: {
+    width: "100%",
+    alignItems: "center",
+    display: "flex",
+    backgroundColor: "#220D3A",
+    padding: "15px 6%"
   },
-  h1:{
-    margin: 0,
+  h1: {
+    margin: 0
   },
   logoAnchor: {
-    display: 'inline-block',
+    display: "inline-block"
   },
   logoIcon: {
-    width: '100%',
+    width: "100%"
   },
   navUl: {
     padding: 0,
-    margin: 0,   
-    display: 'flex',
+    margin: 0,
+    display: "flex"
   },
   navLinks: {
     marginRight: 26,
-    listStyle: 'none',
+    listStyle: "none",
+    "& div": {
+      marginTop: 0,
+      "& label": {
+        top: "-17px",
+        color: "#9b9b9b"
+      },
+      "& svg": {
+        right: "-35px",
+        color: "#9b9b9b",
+        fontSize: 30
+      }
+    }
   },
   navLinksAnchor: {
-    textDecoration: 'none',
+    textDecoration: "none",
     fontSize: 20,
-    color: '#9B9B9B',
+    color: "#9B9B9B"
   },
   activeTab: {
     paddingBottom: 12,
     fontWeight: 600,
-    borderBottomWidth: '2px',
-    borderBottomStyle: 'solid',
-    borderBottomColor: '#fff',
-    color: '#fff'
+    borderBottomWidth: "2px",
+    borderBottomStyle: "solid",
+    borderBottomColor: "#fff",
+    color: "#fff"
   },
   loginBtnsUl: {
     margin: 0,
     padding: 0,
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'flex-end',
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "flex-end"
   },
   loginBtnsLi: {
     marginRight: 26,
-    listStyle: 'none',
+    listStyle: "none"
   },
   signupBtn: {
-    padding: '7px 12px',
-    borderWidth: '1px',
-    borderStyle: 'solid',
-    borderColor: '#fff',
+    padding: "7px 12px",
+    borderWidth: "1px",
+    borderStyle: "solid",
+    borderColor: "#fff",
     borderRadius: 4,
-    marginRight: 0,
+    marginRight: 0
   },
   loginBtnsAnchor: {
-    textDecoration: 'none', 
-    fontFamily: 'sans-serif',
+    textDecoration: "none",
+    fontFamily: "sans-serif",
     fontSize: 20,
-    color: '#fff',
+    color: "#fff"
   },
   signupBtnText: {
-    fontWeight: '600',
+    fontWeight: "600",
     letterSpacing: 1.79,
-    lineHeight: '16px',
+    lineHeight: "16px"
   },
-  UppercaseText: { textTransform: 'uppercase'},
-  XXX:{
-    backgroundColor: 'red'
+  UppercaseText: { textTransform: "uppercase" },
+  XXX: {
+    backgroundColor: "red"
   }
 }));
 
@@ -92,7 +104,11 @@ function Header() {
         <Grid item xs={3} sm={3} md={3} lg={3}>
           <h1 className={classes.h1}>
             <a href="#" title="SingularityNET" className={classes.logoAnchor}>
-              <img src={Logo} alt="SingularityNET" className={classes.logoIcon} />
+              <img
+                src={Logo}
+                alt="SingularityNET"
+                className={classes.logoIcon}
+              />
             </a>
           </h1>
         </Grid>
@@ -100,16 +116,30 @@ function Header() {
           <nav>
             <ul className={classes.navUl}>
               <li className={classes.navLinks}>
-                <a href="#" title="AI Marketplace" className={`${classes.navLinksAnchor} ${classes.activeTab}`}>AI Marketplace</a>
+                <a
+                  href="#"
+                  title="AI Marketplace"
+                  className={`${classes.navLinksAnchor} ${classes.activeTab}`}
+                >
+                  AI Marketplace
+                </a>
               </li>
               <li className={classes.navLinks}>
-                <a href="#" title="Pricing" className={classes.navLinksAnchor}>Pricing</a>
+                <a href="#" title="Pricing" className={classes.navLinksAnchor}>
+                  Pricing
+                </a>
               </li>
               <li className={classes.navLinks}>
-                <a href="#" title="Get Started" className={classes.navLinksAnchor}>Get Started</a>
+                <a
+                  href="#"
+                  title="Get Started"
+                  className={classes.navLinksAnchor}
+                >
+                  Get Started
+                </a>
               </li>
               <li className={classes.navLinks}>
-                <a href="#" title="Resources" className={classes.navLinksAnchor}>Resources</a>
+                <StyledDropdown labelTxt="Resources" />
               </li>
             </ul>
           </nav>
@@ -117,10 +147,18 @@ function Header() {
         <Grid item xs={3} sm={3} md={3} lg={3}>
           <ul className={classes.loginBtnsUl}>
             <li className={classes.loginBtnsLi}>
-              <a href="#" title="Login" className={classes.loginBtnsAnchor}>Login</a>
+              <a href="#" title="Login" className={classes.loginBtnsAnchor}>
+                Login
+              </a>
             </li>
             <li className={`${classes.signupBtn} ${classes.loginBtnsLi}`}>
-              <a href="#" title="Sign Up" className={`${classes.loginBtnsAnchor} ${classes.UppercaseText} ${classes.signupBtnText}`}>Sign Up</a>
+              <a
+                href="#"
+                title="Sign Up"
+                className={`${classes.loginBtnsAnchor} ${classes.UppercaseText} ${classes.signupBtnText}`}
+              >
+                Sign Up
+              </a>
             </li>
           </ul>
         </Grid>

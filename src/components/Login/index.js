@@ -6,6 +6,10 @@ import { withStyles } from "@material-ui/styles";
 import Grid from "@material-ui/core/Grid";
 import TextField from "@material-ui/core/TextField";
 
+// internal components
+import StyledButton from "../common/StyledButton/index.js";
+import ErrorMsgBox from "../common/ErrorMsgBox/index.js";
+
 // images
 import Logo from "../../assets/images/LoginLogo.png";
 
@@ -39,9 +43,9 @@ const useStyles = theme => ({
   },
   loginHeaderLink: {
     textAlign: "right",
-    '& a': {
-      '&:hover': {
-        textDecoration: 'underline'
+    "& a": {
+      "&:hover": {
+        textDecoration: "underline"
       }
     },
     ["@media (max-width:750px)"]: {
@@ -72,6 +76,9 @@ const useStyles = theme => ({
       letterSpacing: "0.29px",
       textTransform: "uppercase"
     },
+    "& button": {
+      width: "100%"
+    },
     ["@media (max-width:545px)"]: {
       width: "80%"
     }
@@ -80,8 +87,8 @@ const useStyles = theme => ({
     width: "100%",
     padding: "12px 0",
     borderWidth: 1,
-    borderStyle: 'solid',
-    borderColor: '#333',
+    borderStyle: "solid",
+    borderColor: "#333",
     borderRadius: 4,
     margin: "11px 0 15px",
     display: "flex",
@@ -93,15 +100,15 @@ const useStyles = theme => ({
     fontSize: "14px",
     letterSpacing: "1.25px",
     textTransform: "uppercase",
-    transition: '0.3s',
+    transition: "0.3s",
     "& i": {
       fontSize: 24,
       marginRight: 5
     },
-    '&:hover':{
-      backgroundColor: '#fff',
-      borderColor: '#333',
-      color: '#333',
+    "&:hover": {
+      backgroundColor: "#fff",
+      borderColor: "#333",
+      color: "#333"
     }
   },
   horizontalLine: {
@@ -113,7 +120,7 @@ const useStyles = theme => ({
     "&::before": {
       content: '" "',
       display: "inline-block",
-      verticalAlign: 'middle',
+      verticalAlign: "middle",
       width: 160,
       height: 1,
       backgroundColor: "#F5F7F8",
@@ -122,7 +129,7 @@ const useStyles = theme => ({
     "&::after": {
       content: '" "',
       display: "inline-block",
-      verticalAlign: 'middle',
+      verticalAlign: "middle",
       width: 160,
       height: 1,
       marginLeft: 10,
@@ -151,38 +158,8 @@ const useStyles = theme => ({
     ["@media (max-width:400px)"]: {
       flexDirection: "column"
     }
-  },
-  errorText: {
-    borderWidth: 1,
-    borderStyle: "solid",
-    borderColor: "rgba(208,2,27,0.2)",
-    padding: "13px 20px",
-    margin: "20px 0 !important",
-    backgroundColor: "rgba(208,2,27,0.2)",
-    color: "rgba(0,0,0,.6)",
-    fontSize: "14px !important",
-    fontFamily: "Raleway",
-    textAlign: "left"
-  },
-  formButton: {
-    width: "100%",
-    padding: "13px 0",
-    border: 1,
-    borderStyle: 'solid',
-    borderColor: '#4086ff',
-    borderRadius: 4,
-    backgroundColor: "#4086ff",
-    color: "#fff",
-    cursor: "pointer",
-    fontSize: "14px",
-    textTransform: "uppercase",
-    '&:hover':{
-      borderColor: '#4086ff',
-      backgroundColor: '#fff',
-      color: '#4086ff'
-    }
   }
-})
+});
 
 class Login extends Component {
   state = {
@@ -283,10 +260,8 @@ class Login extends Component {
               </div>
               <Link to={Routes.FORGOT_PASSWORD}>Forgot password?</Link>
             </div>
-            <p className={classes.errorText}>error state message</p>
-            <button className={classes.formButton} onClick={this.handleSubmit}>
-              login
-            </button>
+            <ErrorMsgBox errorMsg="error state message" />
+            <StyledButton type="blue" btnText="login" />
           </form>
         </Grid>
       </Grid>

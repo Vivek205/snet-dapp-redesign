@@ -1,14 +1,14 @@
 import React, { Component } from "react";
-
 import { Link } from "react-router-dom";
-
 
 // material components
 import { makeStyles } from "@material-ui/styles";
 import Grid from "@material-ui/core/Grid";
 import TextField from "@material-ui/core/TextField";
-
 import { withStyles } from "@material-ui/styles";
+
+// internal components
+import StyledButton from "../common/StyledButton";
 
 // images
 import Logo from "../../assets/images/LoginLogo.png";
@@ -17,7 +17,6 @@ import { Auth } from "aws-amplify";
 import Session from "../../utility/stringConstants/session";
 
 const useStyles = theme => ({
-
   loginHeader: {
     width: "71%",
     padding: "30px 0",
@@ -43,9 +42,9 @@ const useStyles = theme => ({
   },
   loginHeaderLink: {
     textAlign: "right",
-    '& a': {
-      '&:hover': {
-        textDecoration: 'underline'
+    "& a": {
+      "&:hover": {
+        textDecoration: "underline"
       }
     },
     ["@media (max-width:750px)"]: {
@@ -80,13 +79,14 @@ const useStyles = theme => ({
     margin: "45px auto 0",
     boxShadow:
       "0 1px 1px 0 rgba(0,0,0,0.14), 0 2px 1px -1px rgba(0,0,0,0.14), 0 1px 3px 0 rgba(0,0,0,0.2)",
+    "& button": { width: "100%" },
     ["@media (max-width:527px)"]: {
       width: "100%"
     }
   },
   textField: {
     width: "100%",
-    margin: 0
+    margin: "0 0 20px 0"
   },
   errorText: {
     borderWidth: 1,
@@ -99,34 +99,19 @@ const useStyles = theme => ({
     fontSize: "14px !important",
     fontFamily: "Raleway",
     textAlign: "left"
-  },
-  formButton: {
-    width: "100%",
-    padding: "13px 0",
-    border: 1,
-    borderStyle: 'solid',
-    borderColor: '#4086ff',
-    borderRadius: 4,
-    backgroundColor: "#4086ff",
-    color: "#fff",
-    cursor: "pointer",
-    fontSize: "14px",
-    textTransform: "uppercase",
-    '&:hover':{
-      borderColor: '#4086ff',
-      backgroundColor: '#fff',
-      color: '#4086ff'
-    }
   }
 });
+
 class ForgotPassword extends Component {
   state = {
     username: "",
     error: undefined
   };
+
   handleUsername = event => {
     this.setState({ username: event.currentTarget.value });
   };
+
   handleSubmit = event => {
     this.setState({ error: undefined });
     const { username } = this.state;
@@ -144,6 +129,7 @@ class ForgotPassword extends Component {
         this.setState({ error: err.message });
       });
   };
+
   render() {
     const { classes } = this.props;
     const { username, error } = this.state;
@@ -193,12 +179,13 @@ class ForgotPassword extends Component {
               onChange={this.handleUsername}
             />
             {error && <p className={classes.errorText}>{error}</p>}
-            <button className={classes.formButton} onClick={this.handleSubmit}>
-              reset password
-            </button>
+            <StyledButton
+              type="blue"
+              btnText="reset password"
+              onClick={this.handleSubmit}
+            />
           </form>
         </Grid>
-
       </Grid>
     );
   }

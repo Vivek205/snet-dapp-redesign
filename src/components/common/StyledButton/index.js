@@ -28,12 +28,12 @@ const useStyles = makeStyles(theme => ({
     }
   },
   blueBg: {
-    backgroundColor: "#4086ff",
+    backgroundColor: theme.palette.primary.main,
     color: "#fff",
     "&:hover": {
       backgroundColor: "#fff",
-      borderColor: "#4086FF",
-      color: "#4086FF"
+      borderColor: theme.palette.primary.main,
+      color: theme.palette.primary.main
     }
   }
 }));

@@ -18,11 +18,11 @@ const useStyles = makeStyles(theme => ({
   },
   sortbyTxt: {
     padding: "0 10px 5px 0",
-    color: "#9B9B9B",
+    color: theme.palette.secondary.main,
     fontSize: 18
   },
   servicesCount: {
-    color: "#9B9B9B",
+    color: theme.palette.secondary.main,
     fontSize: 18
   },
   iconsContainer: {
@@ -34,7 +34,7 @@ const useStyles = makeStyles(theme => ({
       outline: "none",
       cursor: "pointer",
       "& span": {
-        color: "#9b9b9b",
+        color: theme.palette.secondary.main,
         fontSize: 17
       }
     }

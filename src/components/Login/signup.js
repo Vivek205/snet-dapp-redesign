@@ -8,6 +8,7 @@ import TextField from "@material-ui/core/TextField";
 import { withStyles } from "@material-ui/styles";
 
 // internal components
+import Header from "./header.js";
 import StyledButton from "../common/StyledButton/index.js";
 import ErrorMsgBox from "../common/ErrorMsgBox/index.js";
 
@@ -17,41 +18,10 @@ import Logo from "../../assets/images/LoginLogo.png";
 import Routes from "../../utility/stringConstants/routes";
 
 const useStyles = theme => ({
-  wrapper: {
+  signupMainContent: {
     width: "71%",
     paddingBottom: 50,
     margin: "0 auto"
-  },
-  loginHeader: {
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "space-between",
-    flexBasis: "100%",
-    padding: "30px 0",
-    "& h1": {
-      margin: 0
-    },
-    "& p": {
-      color: "#9b9b9b",
-      fontSize: "16px"
-    },
-    "& a": {
-      color: "#4086ff",
-      textDecoration: "none"
-    }
-  },
-  loginHeaderLink: {
-    textAlign: "right",
-    "& a": {
-      "&:hover": {
-        textDecoration: "underline"
-      }
-    },
-    ["@media (max-width:750px)"]: {
-      maxWidth: "100%",
-      flexBasis: "100%",
-      textAlign: "left"
-    }
   },
   signupContent: {
     width: "71%",
@@ -70,7 +40,7 @@ const useStyles = theme => ({
     "& p": {
       margin: "40px 0 40px",
       color: "#616161",
-      fontFamily: "Raleway",
+      fontFamily: theme.typography.primary.main,
       fontSize: 20,
       lineHeight: "30px"
     },
@@ -206,7 +176,7 @@ const useStyles = theme => ({
       color: "#666"
     },
     "& a": {
-      color: "#4086ff",
+      color: theme.palette.primary.main,
       fontSize: 14,
       textDecoration: "none"
     }
@@ -271,29 +241,9 @@ class SignUp extends Component {
     const { username, email, password, hasAcceptedTerms } = this.state;
     const { classes } = this.props;
     return (
-      <div className={classes.wrapper}>
-        <Grid container spacing={24} className={classes.loginHeader}>
-          <Grid item xs={12} sm={6} md={6} lg={6}>
-            <h1>
-              <a href="#" title="SingularityNET">
-                <img src={Logo} alt="SingularityNET" />
-              </a>
-            </h1>
-          </Grid>
-          <Grid
-            item
-            xs={12}
-            sm={6}
-            md={6}
-            lg={6}
-            className={classes.loginHeaderLink}
-          >
-            <p>
-              Already have an account? <Link to={Routes.LOGIN}>Login</Link>
-            </p>
-          </Grid>
-        </Grid>
-        <Grid container spacing={24}>
+      <div>
+        <Header title="Already have an account?" linkText="Login" />
+        <Grid container spacing={24} className={classes.signupMainContent}>
           <Grid
             item
             xs={12}

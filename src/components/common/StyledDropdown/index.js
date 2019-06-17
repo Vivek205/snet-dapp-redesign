@@ -10,7 +10,7 @@ import Select from "@material-ui/core/Select";
 const useStyles = makeStyles(theme => ({
   formControl: {
     "& label": {
-      color: "#4086ff",
+      color: theme.palette.primary.main,
       fontSize: 18,
       "& div": {
         "&::before": {
@@ -20,7 +20,7 @@ const useStyles = makeStyles(theme => ({
     },
     "& svg": {
       right: "-15px",
-      color: "#4086ff"
+      color: theme.palette.primary.main
     },
     "& label + div": {
       "&::before": {

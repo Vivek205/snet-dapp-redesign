@@ -7,6 +7,7 @@ import Grid from "@material-ui/core/Grid";
 import TextField from "@material-ui/core/TextField";
 
 // internal components
+import Header from "./header.js";
 import StyledButton from "../common/StyledButton/index.js";
 import ErrorMsgBox from "../common/ErrorMsgBox/index.js";
 
@@ -18,42 +19,6 @@ import Routes from "../../utility/stringConstants/routes";
 import Session from "../../utility/stringConstants/session";
 
 const useStyles = theme => ({
-  loginHeader: {
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "space-between",
-    flexBasis: "100%",
-    maxWidth: "71%",
-    margin: "0 auto",
-    padding: "30px 0",
-    "& h1": {
-      margin: 0
-    },
-    "& p": {
-      color: "#9b9b9b",
-      fontSize: "16px"
-    },
-    "& a": {
-      color: "#4086ff",
-      textDecoration: "none"
-    },
-    ["@media (max-width:750px)"]: {
-      width: "75%"
-    }
-  },
-  loginHeaderLink: {
-    textAlign: "right",
-    "& a": {
-      "&:hover": {
-        textDecoration: "underline"
-      }
-    },
-    ["@media (max-width:750px)"]: {
-      maxWidth: "100%",
-      flexBasis: "100%",
-      textAlign: "left"
-    }
-  },
   loginDetails: {
     textAlign: "center",
     "& h2": {
@@ -194,27 +159,7 @@ class Login extends Component {
     const { username, password } = this.state;
     return (
       <Grid container spacing={24}>
-        <Grid container spacing={24} className={classes.loginHeader}>
-          <Grid item xs={12} sm={6} md={6} lg={6}>
-            <h1>
-              <a href="#" title="SingularityNET">
-                <img src={Logo} alt="SingularityNET" />
-              </a>
-            </h1>
-          </Grid>
-          <Grid
-            item
-            xs={12}
-            sm={6}
-            md={6}
-            lg={6}
-            className={classes.loginHeaderLink}
-          >
-            <p>
-              Doesn't have an account? <Link to={Routes.SIGNUP}>SignUp</Link>
-            </p>
-          </Grid>
-        </Grid>
+        <Header title="Doesn't have an account?" linkText="SignUp" />
         <Grid
           item
           xs={12}

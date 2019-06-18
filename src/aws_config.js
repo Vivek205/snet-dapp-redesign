@@ -20,9 +20,9 @@ export const aws_config = {
     identityPoolId: "us-east-1:8a98cb16-e64b-4aec-bcbb-30c447aec81a",
     // REQUIRED - Amazon Cognito Region
     region: "us-east-1",
-    // OPTIONAL - Amazon Cognito User Pool ID
+    // REQUIRED - Amazon Cognito User Pool ID
     userPoolId: "us-east-1_65MHedYHj",
-    // OPTIONAL - Amazon Cognito Web Client ID (26-char alphanumeric string)
+    // REQUIRED - Amazon Cognito Web Client ID (26-char alphanumeric string)
     userPoolWebClientId: "49d6u3538qjlet95rs2aoo9usj"
     // storage: {}
   },

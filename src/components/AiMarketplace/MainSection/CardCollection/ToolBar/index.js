@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React from "react";
 
 // Material UI imports
 import { makeStyles } from "@material-ui/styles";

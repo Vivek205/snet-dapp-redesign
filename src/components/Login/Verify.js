@@ -26,21 +26,18 @@ class Verify extends Component {
     event.stopPropagation();
     Auth.confirmSignUp(username, otp)
       .then(res => {
-        console.log("otp verified", res);
+        this.props.history.push(Routes.AI_MARKETPLACE);
       })
       .catch(err => {
         this.setState({ loading: "" });
-        console.log("verify err", err);
       });
     Auth.resendSignUp(username)
       .then(res => {
         this.setState({ loading: "" });
         this.props.history.push(Routes.AI_MARKETPLACE);
-        console.log("code resent successfully", res);
       })
       .catch(e => {
         this.setState({ loading: "" });
-        console.log(e);
       });
   };
   render() {

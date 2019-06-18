@@ -11,10 +11,8 @@ import Header from "../common/LoginOnboardingHeader/index.js";
 import StyledButton from "../common/StyledButton/index.js";
 import ErrorMsgBox from "../common/ErrorMsgBox/index.js";
 
-// images
-import Logo from "../../assets/images/LoginLogo.png";
-
 import { Auth } from "aws-amplify";
+// import { AWS } from "@aws-amplify/core";
 import Routes from "../../utility/stringConstants/routes";
 import Session from "../../utility/stringConstants/session";
 
@@ -120,8 +118,7 @@ class Login extends Component {
     event.preventDefault();
     event.stopPropagation();
     Auth.signIn(username, password)
-      .then(res => {
-        console.log("login data", res);
+      .then(user => {
         this.props.history.push(Routes.AI_MARKETPLACE);
       })
       .catch(err => {
@@ -133,6 +130,7 @@ class Login extends Component {
         this.setState({ error: err.message });
       });
   };
+
   render() {
     const { classes } = this.props;
     const { username, password, error } = this.state;
@@ -160,8 +158,6 @@ class Login extends Component {
               id="outlined-user-name"
               label="UserName or Email"
               className={classes.textField}
-              // value={this.state.UserName}
-              // onChange={this.handleUserNameChange('name')}
               margin="normal"
               variant="outlined"
               value={username}
@@ -180,8 +176,8 @@ class Login extends Component {
             />
             <div className={classes.checkboxSection}>
               <div className={classes.checkbox}>
-                <input type="checkbox" />
-                <label>Remember Me</label>
+                {/* <input type="checkbox" />
+                <label>Remember Me</label> */}
               </div>
               <Link to={Routes.FORGOT_PASSWORD}>Forgot password?</Link>
             </div>

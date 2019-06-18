@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React from "react";
 
 import ToolBar from "./ToolBar/index.js";
 import CardGroup from "./CardGroup/index.js";

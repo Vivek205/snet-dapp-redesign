@@ -20,11 +20,11 @@ const useStyles = theme => ({
     "& h2": {
       margin: 0,
       fontSize: "36px",
-      color: "rgba(0,0,0,.87)"
+      color: theme.palette.text.black1
     },
     "& p": {
       margin: "17px 0 0",
-      color: "#616161",
+      color: theme.palette.text.gray3,
       fontSize: "22px",
       fontFamily: theme.typography.secondary.main
     },
@@ -49,18 +49,6 @@ const useStyles = theme => ({
   textField: {
     width: "100%",
     margin: "0 0 20px 0"
-  },
-  errorText: {
-    borderWidth: 1,
-    borderStyle: "solid",
-    borderColor: "rgba(208,2,27,0.2)",
-    padding: "13px 20px",
-    margin: "20px 0 !important",
-    backgroundColor: "rgba(208,2,27,0.2)",
-    color: "rgba(0,0,0,.6)",
-    fontSize: "14px !important",
-    fontFamily: theme.typography.secondary.main,
-    textAlign: "left"
   }
 });
 
@@ -120,7 +108,6 @@ class ForgotPassword extends Component {
               value={username}
               onChange={this.handleUsername}
             />
-            {error && <p className={classes.errorText}>{error}</p>}
             <StyledButton
               type="blue"
               btnText="reset password"

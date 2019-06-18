@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React from "react";
 import PropTypes from "prop-types";
 
 // Material UI imports
@@ -55,19 +55,17 @@ function StyledButton(props) {
   const classes = useStyles();
 
   return (
-    <>
-      <Button
-        className={classNames(
-          classes.styledButton,
-          classes[buttonColor[props.type]]
-        )}
-        disabled={props.disabled}
-        onClick={props.onClick}
-      >
-        {props.iconClass ? <i className={props.iconClass}></i> : null}
-        {props.btnText}
-      </Button>
-    </>
+    <Button
+      className={classNames(
+        classes.styledButton,
+        classes[buttonColor[props.type]]
+      )}
+      disabled={props.disabled}
+      onClick={props.onClick}
+    >
+      {props.iconClass ? <i className={props.iconClass}></i> : null}
+      {props.btnText}
+    </Button>
   );
 }
 

@@ -57,8 +57,8 @@ const useStyles = makeStyles(theme => ({
     fontWeight: 600,
     borderBottomWidth: "2px",
     borderBottomStyle: "solid",
-    borderBottomColor: "#fff",
-    color: "#fff"
+    borderBottomColor: theme.palette.text.primary,
+    color: theme.palette.text.primary
   },
   loginBtnsUl: {
     margin: 0,
@@ -75,24 +75,21 @@ const useStyles = makeStyles(theme => ({
     padding: "7px 12px",
     borderWidth: "1px",
     borderStyle: "solid",
-    borderColor: "#fff",
+    borderColor: theme.palette.text.primary,
     borderRadius: 4,
     marginRight: 0
   },
   loginBtnsAnchor: {
     textDecoration: "none",
     fontSize: 20,
-    color: "#fff"
+    color: theme.palette.text.primary
   },
   signupBtnText: {
     fontWeight: "600",
     letterSpacing: 1.79,
     lineHeight: "16px"
   },
-  UppercaseText: { textTransform: "uppercase" },
-  XXX: {
-    backgroundColor: "red"
-  }
+  UppercaseText: { textTransform: "uppercase" }
 }));
 
 function Header() {

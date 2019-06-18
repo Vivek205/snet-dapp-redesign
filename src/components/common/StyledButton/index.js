@@ -18,21 +18,21 @@ const useStyles = makeStyles(theme => ({
     borderStyle: "solid",
     borderColor: "transparent",
     padding: "13px 28px 11px",
-    color: "#fff",
+    color: theme.palette.text.primary,
     textTransform: "uppercase",
     fontFamily: theme.typography.primary.main,
     fontWeight: 600,
     letterSpacing: "1.25px",
     lineHeight: "16px",
     "&:disabled": {
-      backgroundColor: "#e6e6e6",
+      backgroundColor: theme.palette.text.disabled,
       color: "#bcbcbc"
     }
   },
   blueBg: {
     backgroundColor: theme.palette.primary.main,
     "&:hover": {
-      backgroundColor: "#fff",
+      backgroundColor: theme.palette.text.primary,
       borderColor: theme.palette.primary.main,
       color: theme.palette.primary.main
     }
@@ -44,7 +44,7 @@ const useStyles = makeStyles(theme => ({
       marginRight: 5
     },
     "&:hover": {
-      backgroundColor: "#fff",
+      backgroundColor: theme.palette.text.primary,
       borderColor: "#333",
       color: "#333"
     }

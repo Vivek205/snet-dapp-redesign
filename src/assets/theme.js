@@ -2,6 +2,8 @@ import { createMuiTheme } from "@material-ui/core/styles";
 
 const customPrimaryBlue = "#4086ff";
 const customSecodaryTextColor = "#9b9b9b";
+const whiteColor = "#fff";
+const disabledBgColor = "#e6e6e6";
 
 const theme = createMuiTheme({
   palette: {
@@ -10,6 +12,10 @@ const theme = createMuiTheme({
     },
     secondary: {
       main: customSecodaryTextColor
+    },
+    text: {
+      primary: whiteColor,
+      disabled: disabledBgColor
     }
   },
   typography: {

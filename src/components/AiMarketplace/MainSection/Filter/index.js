@@ -41,7 +41,7 @@ const useStyles = makeStyles(theme => ({
     fontFamily: theme.typography.primary.main
   },
   filterDetails: {
-    backgroundColor: "#fff",
+    backgroundColor: theme.palette.text.primary,
     flexDirection: "column"
   },
   formCntrlGrup: {

@@ -17,6 +17,7 @@ import Routes from "./utility/stringConstants/routes";
 import Verify from "./components/Login/Verify";
 import ForgotPassword from "./components/Login/forgotpassword";
 import ForgotPasswordSubmit from "./components/Login/ForgotPasswordSubmit";
+import PageNotFound from "./components/PageNotFound";
 
 Amplify.configure(aws_config);
 
@@ -41,6 +42,8 @@ class App extends Component {
               path={`/${Routes.AI_MARKETPLACE}`}
               component={AiMarketplace}
             />
+            <Route path="/" exact component={AiMarketplace} />
+            <Route component={PageNotFound} />
           </Switch>
         </Router>
       </ThemeProvider>

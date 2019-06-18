@@ -318,7 +318,7 @@ class SignUp extends Component {
                   </a>
                 </p>
               </div>
-              <ErrorMsgBox errorMsg="error state message" />
+              <ErrorMsgBox errorMsg="error state message" showErr />
               <StyledButton
                 type="blue"
                 btnText="Sign up for free credits"

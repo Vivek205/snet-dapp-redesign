@@ -81,7 +81,7 @@ const useStyles = theme => ({
     }
   },
   checkboxSection: {
-    marginTop: 10,
+    margin: "10px 0",
     display: "flex",
     alignItems: "baseline",
     justifyContent: "space-between",
@@ -182,7 +182,7 @@ class Login extends Component {
               </div>
               <Link to={Routes.FORGOT_PASSWORD}>Forgot password?</Link>
             </div>
-            <ErrorMsgBox errorMsg="error state message" />
+            <ErrorMsgBox errorMsg="error state message" showErr />
             <StyledButton type="blue" btnText="login" />
           </form>
         </Grid>

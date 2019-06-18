@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component, Fragment } from "react";
 import { Auth } from "aws-amplify";
 
 // material components
@@ -165,7 +165,9 @@ class SignUp extends Component {
     email: "",
     password: "",
     hasAcceptedTerms: false,
-    error: undefined
+    error: undefined,
+    toBeConfirmed: false,
+    otp: ""
   };
 
   handleUsername = event => {
@@ -184,6 +186,10 @@ class SignUp extends Component {
     this.setState(prevState => ({
       hasAcceptedTerms: !prevState.hasAcceptedTerms
     }));
+  };
+
+  handleOTP = event => {
+    this.setState({ otp: event.currentTarget.value });
   };
 
   handleSubmit = event => {
@@ -225,14 +231,152 @@ class SignUp extends Component {
       .then(user => {
         console.log("user", user);
         sessionStorage.setItem(Session.USERNAME, username);
-        this.props.history.push(Routes.VERIFY);
+        this.setState({ toBeConfirmed: true });
       })
       .catch(err => this.setState({ error: err.message }));
   };
 
+  handleConfirmSignup = event => {
+    const { username, otp } = this.state;
+    event.preventDefault();
+    event.stopPropagation();
+    Auth.confirmSignUp(username, otp)
+      .then(res => {
+        console.log("otp verified", res);
+      })
+      .catch(err => {
+        this.setState({ loading: "" });
+        console.log("verify err", err);
+      });
+    Auth.resendSignUp(username)
+      .then(res => {
+        this.setState({ loading: "" });
+        this.props.history.push(Routes.AI_MARKETPLACE);
+        console.log("code resent successfully", res);
+      })
+      .catch(e => {
+        this.setState({ loading: "" });
+        console.log(e);
+      });
+  };
+
   render() {
-    const { username, email, password, hasAcceptedTerms, error } = this.state;
+    const {
+      username,
+      email,
+      password,
+      hasAcceptedTerms,
+      otp,
+      error,
+      toBeConfirmed
+    } = this.state;
     const { classes } = this.props;
+
+    const renderForm = (
+      <Fragment>
+        <h3>sign up with </h3>
+        <StyledButton btnText="github" type="black" iconClass="fab fa-github" />
+        <span className={classes.horizontalLine}>or</span>
+        <TextField
+          id="outlined-user-name"
+          label="UserName"
+          className={classes.textField}
+          value={username}
+          onChange={this.handleUsername}
+          margin="normal"
+          variant="outlined"
+        />
+        <div>
+          <TextField
+            id="outlined-email-input"
+            label="Email"
+            className={classes.textField}
+            type="email"
+            name="email"
+            autoComplete="email"
+            margin="normal"
+            variant="outlined"
+            value={email}
+            onChange={this.handleEmail}
+          />
+          {email !== "" && !isValidEmail(email) && (
+            <span className={classes.usernameError}>
+              Error msg - invalid email
+            </span>
+          )}
+        </div>
+        <TextField
+          id="outlined-password-input"
+          label="Password"
+          className={classes.textField}
+          type="password"
+          autoComplete="current-password"
+          margin="normal"
+          variant="outlined"
+          value={password}
+          onChange={this.handlePassword}
+        />
+        <div className={classes.checkboxSection}>
+          <input
+            type="checkbox"
+            checked={hasAcceptedTerms}
+            onChange={this.handleAcceptedTerms}
+          />
+          <p>
+            I agree with{" "}
+            <a href="#" title="SingularityNET Terms of Service">
+              SingularityNET Terms of Service
+            </a>
+          </p>
+        </div>
+        {error && <ErrorMsgBox errorMsg={error} />}
+        <StyledButton
+          type="blue"
+          btnText="Sign up for free credits"
+          onClick={this.handleSubmit}
+        />
+      </Fragment>
+    );
+
+    const renderOTP = (
+      <Fragment>
+        <h3>Confirm Sign up </h3>
+        <p>
+          <strong>
+            A verfiication code has been sent to your email address
+          </strong>
+        </p>
+        <p>
+          Please enter the verification code below to confirm your email
+          address. If you are unable to find the email from
+          <strong>'otp@singularitynet.io'</strong> in your inbox, make sure to
+          check the spam folder. The code will be valid only for 5 minutes.
+        </p>
+        <TextField
+          id="outlined-confirm-otp"
+          label="OTP"
+          className={classes.textField}
+          type="password"
+          autoComplete="otp"
+          margin="normal"
+          variant="outlined"
+          value={otp}
+          onChange={this.handleOTP}
+        />
+        {error && <ErrorMsgBox errorMsg={error} />}
+        <StyledButton
+          type="blue"
+          btnText="Resend"
+          onClick={this.handleConfirmSignup}
+        />
+        <StyledButton
+          type="blue"
+          btnText="Conitnue"
+          onClick={this.handleConfirmSignup}
+        />
+      </Fragment>
+    );
+
     return (
       <div>
         <Header title="Already have an account?" linkText="Login" />
@@ -274,73 +418,9 @@ class SignUp extends Component {
           </Grid>
           <Grid item xs={12} sm={12} md={6} lg={6}>
             <form noValidate autoComplete="off" className={classes.signupForm}>
-              <h3>sign up with </h3>
-              <StyledButton
-                btnText="github"
-                type="black"
-                iconClass="fab fa-github"
-              />
-              <span className={classes.horizontalLine}>or</span>
-              <TextField
-                id="outlined-user-name"
-                label="UserName"
-                className={classes.textField}
-                value={username}
-                onChange={this.handleUsername}
-                margin="normal"
-                variant="outlined"
-              />
-              <div>
-                <TextField
-                  id="outlined-email-input"
-                  label="Email"
-                  className={classes.textField}
-                  type="email"
-                  name="email"
-                  autoComplete="email"
-                  margin="normal"
-                  variant="outlined"
-                  value={email}
-                  onChange={this.handleEmail}
-                />
-                {email !== "" && !isValidEmail(email) && (
-                  <span className={classes.usernameError}>
-                    Error msg - invalid email
-                  </span>
-                )}
-              </div>
-              <TextField
-                id="outlined-password-input"
-                label="Password"
-                className={classes.textField}
-                type="password"
-                autoComplete="current-password"
-                margin="normal"
-                variant="outlined"
-                value={password}
-                onChange={this.handlePassword}
-              />
-              <div className={classes.checkboxSection}>
-                <input
-                  type="checkbox"
-                  checked={hasAcceptedTerms}
-                  onChange={this.handleAcceptedTerms}
-                />
-                <p>
-                  I agree with{" "}
-                  <a href="#" title="SingularityNET Terms of Service">
-                    SingularityNET Terms of Service
-                  </a>
-                </p>
-              </div>
-              {error && <ErrorMsgBox errorMsg={error} />}
-              <StyledButton
-                type="blue"
-                btnText="Sign up for free credits"
-                disabled={this.shouldSubmitBeDisabled()}
-                onClick={this.handleSubmit}
-              />
+              {toBeConfirmed ? renderOTP : renderForm}
             </form>
+            {}
           </Grid>
         </Grid>
       </div>

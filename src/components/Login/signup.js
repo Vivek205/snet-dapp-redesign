@@ -164,7 +164,6 @@ class SignUp extends Component {
     username: "",
     email: "",
     password: "",
-    hasAcceptedTerms: false,
     error: undefined,
     toBeConfirmed: false,
     otp: ""
@@ -182,12 +181,6 @@ class SignUp extends Component {
     this.setState({ password: event.currentTarget.value });
   };
 
-  handleAcceptedTerms = () => {
-    this.setState(prevState => ({
-      hasAcceptedTerms: !prevState.hasAcceptedTerms
-    }));
-  };
-
   handleOTP = event => {
     this.setState({ otp: event.currentTarget.value });
   };
@@ -195,7 +188,7 @@ class SignUp extends Component {
   handleSubmit = event => {
     console.log("create account clicked");
     event.preventDefault();
-    const { username, password, email, hasAcceptedTerms } = this.state;
+    const { username, password, email } = this.state;
     if (username === "") {
       this.setState({ error: "Please enter a username" });
       return;
@@ -213,10 +206,6 @@ class SignUp extends Component {
       return;
     }
 
-    if (!hasAcceptedTerms) {
-      this.setState({ error: "Please accept the terms to proceed" });
-      return;
-    }
     this.setState({ error: undefined });
 
     event.stopPropagation();
@@ -261,15 +250,7 @@ class SignUp extends Component {
   };
 
   render() {
-    const {
-      username,
-      email,
-      password,
-      hasAcceptedTerms,
-      otp,
-      error,
-      toBeConfirmed
-    } = this.state;
+    const { username, email, password, otp, error, toBeConfirmed } = this.state;
     const { classes } = this.props;
 
     const renderForm = (
@@ -316,19 +297,7 @@ class SignUp extends Component {
           value={password}
           onChange={this.handlePassword}
         />
-        <div className={classes.checkboxSection}>
-          <input
-            type="checkbox"
-            checked={hasAcceptedTerms}
-            onChange={this.handleAcceptedTerms}
-          />
-          <p>
-            I agree with{" "}
-            <a href="#" title="SingularityNET Terms of Service">
-              SingularityNET Terms of Service
-            </a>
-          </p>
-        </div>
+
         {error && <ErrorMsgBox errorMsg={error} />}
         <StyledButton
           type="blue"

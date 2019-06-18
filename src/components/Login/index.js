@@ -105,7 +105,8 @@ const useStyles = theme => ({
 class Login extends Component {
   state = {
     username: "",
-    password: ""
+    password: "",
+    error: undefined
   };
   handleUsername = event => {
     this.setState({ username: event.currentTarget.value });
@@ -114,11 +115,13 @@ class Login extends Component {
     this.setState({ password: event.currentTarget.value });
   };
   handleSubmit = event => {
+    this.setState({ error: undefined });
     const { username, password } = this.state;
     event.preventDefault();
     event.stopPropagation();
     Auth.signIn(username, password)
-      .then(() => {
+      .then(res => {
+        console.log("login data", res);
         this.props.history.push(Routes.AI_MARKETPLACE);
       })
       .catch(err => {
@@ -127,12 +130,12 @@ class Login extends Component {
           this.props.history.push(Routes.VERIFY);
           return;
         }
-        alert(err.message);
+        this.setState({ error: err.message });
       });
   };
   render() {
     const { classes } = this.props;
-    const { username, password } = this.state;
+    const { username, password, error } = this.state;
     return (
       <Grid container spacing={24}>
         <Header title="New to singularityNET?" linkText="SignUp" />

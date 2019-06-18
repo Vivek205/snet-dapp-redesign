@@ -7,6 +7,7 @@ import { withStyles } from "@material-ui/styles";
 
 // internal components
 import Header from "../common/LoginOnboardingHeader/index.js";
+import ErrorMsgBox from "../common/ErrorMsgBox/index.js";
 import StyledButton from "../common/StyledButton";
 
 // images
@@ -15,6 +16,41 @@ import { Auth } from "aws-amplify";
 import Session from "../../utility/stringConstants/session";
 
 const useStyles = theme => ({
+  loginHeader: {
+    width: "71%",
+    margin: "0 auto",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "space-between",
+    padding: "30px 0",
+    "& h1": {
+      margin: 0
+    },
+    "& p": {
+      color: "#9b9b9b",
+      fontSize: "16px"
+    },
+    "& a": {
+      color: "#4086ff",
+      textDecoration: "none"
+    },
+    ["@media (max-width:750px)"]: {
+      width: "75%"
+    }
+  },
+  loginHeaderLink: {
+    textAlign: "right",
+    "& a": {
+      "&:hover": {
+        textDecoration: "underline"
+      }
+    },
+    ["@media (max-width:750px)"]: {
+      maxWidth: "100%",
+      flexBasis: "100%",
+      textAlign: "left"
+    }
+  },
   forgotPwdContent: {
     textAlign: "center",
     "& h2": {
@@ -42,13 +78,14 @@ const useStyles = theme => ({
     boxShadow:
       "0 1px 1px 0 rgba(0,0,0,0.14), 0 2px 1px -1px rgba(0,0,0,0.14), 0 1px 3px 0 rgba(0,0,0,0.2)",
     "& button": { width: "100%" },
+    "& p": { marginBottom: 10 },
     ["@media (max-width:527px)"]: {
       width: "100%"
     }
   },
   textField: {
     width: "100%",
-    margin: "0 0 20px 0"
+    margin: "0 0 10px 0"
   }
 });
 
@@ -108,6 +145,7 @@ class ForgotPassword extends Component {
               value={username}
               onChange={this.handleUsername}
             />
+            <ErrorMsgBox errorMsg="error state message" />
             <StyledButton
               type="blue"
               btnText="reset password"

@@ -1,5 +1,5 @@
-import React, { Component } from "react";
-
+import React, { Component, useState, Fragment } from "react";
+import { Link } from "react-router-dom";
 // Material UI imports
 import { makeStyles } from "@material-ui/styles";
 import Grid from "@material-ui/core/Grid";
@@ -8,6 +8,8 @@ import StyledDropdown from "../StyledDropdown/index.js";
 
 // import Images
 import Logo from "../../../assets/images/Logo.png";
+import Routes from "../../../utility/stringConstants/routes.js";
+import { Auth } from "aws-amplify";
 
 const useStyles = makeStyles(theme => ({
   header: {
@@ -94,6 +96,24 @@ const useStyles = makeStyles(theme => ({
 
 function Header() {
   const classes = useStyles();
+  const [isLoggedIn, toggleLoggedIn] = useState(false);
+  Auth.currentSession().then(data => {
+    console.log("signout", Auth.user);
+    if (data === null || data === undefined) {
+      toggleLoggedIn(false);
+    }
+    toggleLoggedIn(true);
+  });
+
+  const handleSignOut = () => {
+    Auth.signOut()
+      .then(data => {
+        console.log("signout", data);
+        toggleLoggedIn(false);
+      })
+      .catch(err => console.log("signout", err));
+  };
+  console.log("isLoggedIn", isLoggedIn);
   return (
     <Grid container spacing={24}>
       <header className={classes.header}>
@@ -142,20 +162,37 @@ function Header() {
         </Grid>
         <Grid item xs={3} sm={3} md={3} lg={3}>
           <ul className={classes.loginBtnsUl}>
-            <li className={classes.loginBtnsLi}>
-              <a href="#" title="Login" className={classes.loginBtnsAnchor}>
-                Login
-              </a>
-            </li>
-            <li className={`${classes.signupBtn} ${classes.loginBtnsLi}`}>
-              <a
-                href="#"
-                title="Sign Up"
-                className={`${classes.loginBtnsAnchor} ${classes.UppercaseText} ${classes.signupBtnText}`}
-              >
-                Sign Up
-              </a>
-            </li>
+            {isLoggedIn ? (
+              <li className={`${classes.signupBtn} ${classes.loginBtnsLi}`}>
+                <Link>
+                  <span
+                    className={`${classes.loginBtnsAnchor} ${classes.UppercaseText} ${classes.signupBtnText}`}
+                    onClick={handleSignOut}
+                  >
+                    {" "}
+                    Sign Out
+                  </span>
+                </Link>
+              </li>
+            ) : (
+              <Fragment>
+                <li className={classes.loginBtnsLi}>
+                  <Link to={Routes.LOGIN}>
+                    <span className={classes.loginBtnsAnchor}>Login</span>
+                  </Link>
+                </li>
+                <li className={`${classes.signupBtn} ${classes.loginBtnsLi}`}>
+                  <Link to={Routes.SIGNUP}>
+                    <span
+                      className={`${classes.loginBtnsAnchor} ${classes.UppercaseText} ${classes.signupBtnText}`}
+                    >
+                      {" "}
+                      Sign Up
+                    </span>
+                  </Link>
+                </li>
+              </Fragment>
+            )}
           </ul>
         </Grid>
       </header>

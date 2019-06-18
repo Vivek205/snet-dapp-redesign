@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Auth } from "aws-amplify";
 import Session from "../../utility/stringConstants/session";
+import Routes from "../../utility/stringConstants/routes";
 
 class ForgotPasswordSubmit extends Component {
   state = {
@@ -22,7 +23,10 @@ class ForgotPasswordSubmit extends Component {
     const { code, password } = this.state;
     event.preventDefault();
     Auth.forgotPasswordSubmit(username, code, password)
-      .then(data => console.log("forgot submit data", data))
+      .then(res => {
+        console.log("forgot submit data", res);
+        this.props.history.push(Routes.AI_MARKETPLACE);
+      })
       .catch(err => console.log("forgot submit err", err));
   };
 

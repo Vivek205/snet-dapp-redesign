@@ -186,7 +186,6 @@ class SignUp extends Component {
   };
 
   handleSubmit = event => {
-    console.log("create account clicked");
     event.preventDefault();
     const { username, password, email } = this.state;
     if (username === "") {
@@ -239,12 +238,21 @@ class SignUp extends Component {
       });
     Auth.resendSignUp(username)
       .then(res => {
-        this.setState({ loading: "" });
         this.props.history.push(Routes.AI_MARKETPLACE);
         console.log("code resent successfully", res);
       })
       .catch(e => {
-        this.setState({ loading: "" });
+        console.log(e);
+      });
+  };
+
+  handleResendOTP = () => {
+    const { username } = this.state;
+    Auth.resendSignUp(username)
+      .then(() => {
+        this.setState({ error: "code resent successfully" });
+      })
+      .catch(e => {
         console.log(e);
       });
   };
@@ -389,7 +397,6 @@ class SignUp extends Component {
             <form noValidate autoComplete="off" className={classes.signupForm}>
               {toBeConfirmed ? renderOTP : renderForm}
             </form>
-            {}
           </Grid>
         </Grid>
       </div>

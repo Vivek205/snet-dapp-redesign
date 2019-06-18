@@ -1,7 +1,7 @@
 export const APIEndpoints = {
   GET_SERVICE: {
     name: "Get Service",
-    endpoint: "https://eahj19g751.execute-api.us-east-1.amazonaws.com/dev",
+    endpoint: "https://3zjz5tihg2.execute-api.us-east-1.amazonaws.com/ropsten",
     service: "lambda",
     region: "us-east-1"
   }

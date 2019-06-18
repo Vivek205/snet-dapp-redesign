@@ -15,6 +15,41 @@ import { Auth } from "aws-amplify";
 import Session from "../../utility/stringConstants/session";
 
 const useStyles = theme => ({
+  loginHeader: {
+    width: "71%",
+    margin: "0 auto",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "space-between",
+    padding: "30px 0",
+    "& h1": {
+      margin: 0
+    },
+    "& p": {
+      color: "#9b9b9b",
+      fontSize: "16px"
+    },
+    "& a": {
+      color: "#4086ff",
+      textDecoration: "none"
+    },
+    ["@media (max-width:750px)"]: {
+      width: "75%"
+    }
+  },
+  loginHeaderLink: {
+    textAlign: "right",
+    "& a": {
+      "&:hover": {
+        textDecoration: "underline"
+      }
+    },
+    ["@media (max-width:750px)"]: {
+      maxWidth: "100%",
+      flexBasis: "100%",
+      textAlign: "left"
+    }
+  },
   forgotPwdContent: {
     textAlign: "center",
     "& h2": {
@@ -61,6 +96,24 @@ const useStyles = theme => ({
     fontSize: "14px !important",
     fontFamily: theme.typography.secondary.main,
     textAlign: "left"
+  },
+  formButton: {
+    width: "100%",
+    padding: "13px 0",
+    border: 1,
+    borderStyle: "solid",
+    borderColor: "#4086ff",
+    borderRadius: 4,
+    backgroundColor: "#4086ff",
+    color: "#fff",
+    cursor: "pointer",
+    fontSize: "14px",
+    textTransform: "uppercase",
+    "&:hover": {
+      borderColor: "#4086ff",
+      backgroundColor: "#fff",
+      color: "#4086ff"
+    }
   }
 });
 

@@ -188,6 +188,7 @@ class SignUp extends Component {
   handleSubmit = event => {
     event.preventDefault();
     const { username, password, email } = this.state;
+    this.setState({ error: undefined });
     if (username === "") {
       this.setState({ error: "Please enter a username" });
       return;
@@ -205,9 +206,6 @@ class SignUp extends Component {
       return;
     }
 
-    this.setState({ error: undefined });
-
-    event.stopPropagation();
     Auth.signUp({
       username,
       password,
@@ -231,29 +229,23 @@ class SignUp extends Component {
     Auth.confirmSignUp(username, otp)
       .then(res => {
         console.log("otp verified", res);
+        this.props.history.push(Routes.AI_MARKETPLACE);
       })
       .catch(err => {
         this.setState({ loading: "" });
         console.log("verify err", err);
       });
-    Auth.resendSignUp(username)
-      .then(res => {
-        this.props.history.push(Routes.AI_MARKETPLACE);
-        console.log("code resent successfully", res);
-      })
-      .catch(e => {
-        console.log(e);
-      });
   };
 
   handleResendOTP = () => {
+    this.setState({ error: undefined });
     const { username } = this.state;
     Auth.resendSignUp(username)
       .then(() => {
         this.setState({ error: "code resent successfully" });
       })
-      .catch(e => {
-        console.log(e);
+      .catch(err => {
+        this.setState({ error: err.message });
       });
   };
 
@@ -344,7 +336,7 @@ class SignUp extends Component {
         <StyledButton
           type="blue"
           btnText="Resend"
-          onClick={this.handleConfirmSignup}
+          onClick={this.handleResendOTP}
         />
         <StyledButton
           type="blue"

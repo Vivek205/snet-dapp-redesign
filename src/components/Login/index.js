@@ -159,8 +159,6 @@ class Login extends Component {
               id="outlined-user-name"
               label="UserName or Email"
               className={classes.textField}
-              // value={this.state.UserName}
-              // onChange={this.handleUserNameChange('name')}
               margin="normal"
               variant="outlined"
               value={username}

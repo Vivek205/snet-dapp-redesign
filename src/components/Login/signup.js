@@ -215,7 +215,6 @@ class SignUp extends Component {
       }
     })
       .then(user => {
-        console.log("user", user);
         sessionStorage.setItem(Session.USERNAME, username);
         this.setState({ toBeConfirmed: true });
       })

@@ -24,10 +24,9 @@ class ForgotPasswordSubmit extends Component {
     event.preventDefault();
     Auth.forgotPasswordSubmit(username, code, password)
       .then(res => {
-        console.log("forgot submit data", res);
         this.props.history.push(Routes.AI_MARKETPLACE);
       })
-      .catch(err => console.log("forgot submit err", err));
+      .catch(err => {});
   };
 
   render() {

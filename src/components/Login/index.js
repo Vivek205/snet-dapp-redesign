@@ -119,7 +119,6 @@ class Login extends Component {
     event.stopPropagation();
     Auth.signIn(username, password)
       .then(user => {
-        console.log("login data", user);
         this.props.history.push(Routes.AI_MARKETPLACE);
       })
       .catch(err => {

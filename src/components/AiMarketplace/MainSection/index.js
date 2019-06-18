@@ -5,7 +5,6 @@ import Filter from "./Filter/index.js";
 import CardCollection from "./CardCollection/index.js";
 
 // Material UI imports
-import { makeStyles } from "@material-ui/styles";
 import Grid from "@material-ui/core/Grid";
 import { Auth, API } from "aws-amplify";
 import { withStyles } from "@material-ui/styles";
@@ -20,10 +19,9 @@ class MainSection extends Component {
   componentDidMount = () => {
     Auth.currentSession()
       .then(data => {
-        console.log(data);
         this.fetchService(data.idToken.jwtToken);
       })
-      .catch(err => console.log(err));
+      .catch(err => {});
   };
   fetchService = jwtToken => {
     API.get("Get Service", "/signup", {
@@ -32,12 +30,9 @@ class MainSection extends Component {
       }
     })
       .then(res => {
-        console.log("fetchservice response", res);
         this.setState({ message: res.message });
       })
-      .catch(err => {
-        console.log("fetchService err", err);
-      });
+      .catch(err => {});
   };
   render() {
     const classes = useStyles();

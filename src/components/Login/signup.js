@@ -11,6 +11,8 @@ import Logo from "../../assets/images/LoginLogo.png";
 import { withStyles } from "@material-ui/styles";
 import { Auth } from "aws-amplify";
 import Routes from "../../utility/stringConstants/routes";
+import { isValidEmail } from "../../utility/validation";
+import Session from "../../utility/stringConstants/session";
 
 const useStyles = theme => ({
   wrapper: {
@@ -261,10 +263,32 @@ class SignUp extends Component {
     }));
   };
   handleSubmit = event => {
-    this.setState({ error: undefined });
     event.preventDefault();
+    const { username, password, email, hasAcceptedTerms } = this.state;
+    if (username === "") {
+      this.setState({ error: "Please enter a username" });
+      return;
+    }
+    if (email === "") {
+      this.setState({ error: "Email cannot be left blank" });
+      return;
+    }
+    if (!isValidEmail(email)) {
+      this.setState({ error: "Please enter a valid email" });
+      return;
+    }
+    if (password === "") {
+      this.setState({ error: "Password cannot be left blank" });
+      return;
+    }
+
+    if (!hasAcceptedTerms) {
+      this.setState({ error: "Please accept the terms to proceed" });
+      return;
+    }
+    this.setState({ error: undefined });
+
     event.stopPropagation();
-    const { username, password, email } = this.state;
     Auth.signUp({
       username,
       password,
@@ -275,17 +299,12 @@ class SignUp extends Component {
     })
       .then(user => {
         console.log("user", user);
+        sessionStorage.setItem(Session.USERNAME, username);
         this.props.history.push(Routes.VERIFY);
       })
       .catch(err => this.setState({ error: err.message }));
   };
-  shouldSubmitBeDisabled = () => {
-    const { username, email, password, hasAcceptedTerms } = this.state;
-    if ((username !== "", email !== "", password !== "", hasAcceptedTerms)) {
-      return false;
-    }
-    return true;
-  };
+
   render() {
     const { username, email, password, hasAcceptedTerms, error } = this.state;
     const { classes } = this.props;
@@ -356,18 +375,15 @@ class SignUp extends Component {
                 github
               </button>
               <span className={classes.horizontalLine}>or</span>
-              <div>
-                <TextField
-                  id="outlined-user-name"
-                  label="UserName"
-                  className={classes.textField}
-                  value={username}
-                  onChange={this.handleUsername}
-                  margin="normal"
-                  variant="outlined"
-                />
-                <span className={classes.charCount}>13/20 char</span>
-              </div>
+              <TextField
+                id="outlined-user-name"
+                label="UserName"
+                className={classes.textField}
+                value={username}
+                onChange={this.handleUsername}
+                margin="normal"
+                variant="outlined"
+              />
               <div>
                 <TextField
                   id="outlined-email-input"
@@ -381,24 +397,23 @@ class SignUp extends Component {
                   value={email}
                   onChange={this.handleEmail}
                 />
-                <span className={classes.usernameError}>
-                  Error msg - invalid email
-                </span>
+                {email !== "" && !isValidEmail(email) && (
+                  <span className={classes.usernameError}>
+                    Error msg - invalid email
+                  </span>
+                )}
               </div>
-              <div>
-                <TextField
-                  id="outlined-password-input"
-                  label="Password"
-                  className={classes.textField}
-                  type="password"
-                  autoComplete="current-password"
-                  margin="normal"
-                  variant="outlined"
-                  value={password}
-                  onChange={this.handlePassword}
-                />
-                <span className={classes.passwordTxt}>Assistive Text</span>
-              </div>
+              <TextField
+                id="outlined-password-input"
+                label="Password"
+                className={classes.textField}
+                type="password"
+                autoComplete="current-password"
+                margin="normal"
+                variant="outlined"
+                value={password}
+                onChange={this.handlePassword}
+              />
               <div className={classes.checkboxSection}>
                 <input
                   type="checkbox"
@@ -415,7 +430,6 @@ class SignUp extends Component {
               {error && <p className={classes.errorText}>{error}</p>}
               <button
                 className={classes.formButton}
-                disabled={this.shouldSubmitBeDisabled()}
                 onClick={this.handleSubmit}
               >
                 create account

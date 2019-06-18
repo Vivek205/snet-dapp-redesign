@@ -24,9 +24,6 @@ const useStyles = makeStyles(theme => ({
     fontWeight: 600,
     letterSpacing: "1.25px",
     lineHeight: "16px",
-    // '&.blueBg':{
-    //   backgroundColor: '#4086FF'
-    // },
     "&:hover": {
       backgroundColor: "#fff",
       borderWidth: 1,
@@ -34,6 +31,9 @@ const useStyles = makeStyles(theme => ({
       borderColor: "#4086FF",
       color: "#4086FF"
     }
+  },
+  blueBg: {
+    backgroundColor: "#4086FF"
   }
 }));
 
@@ -42,7 +42,12 @@ function StyledButton(props) {
 
   return (
     <>
-      <Button className={classNames("styledButton", buttonColor[props.type])}>
+      <Button
+        className={classNames(
+          classes.styledButton,
+          classes[buttonColor[props.type]]
+        )}
+      >
         {props.btnText}
       </Button>
 

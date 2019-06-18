@@ -228,12 +228,11 @@ class SignUp extends Component {
     event.stopPropagation();
     Auth.confirmSignUp(username, otp)
       .then(res => {
-        console.log("otp verified", res);
         this.props.history.push(Routes.AI_MARKETPLACE);
       })
       .catch(err => {
-        this.setState({ loading: "" });
-        console.log("verify err", err);
+        let error = err.message ? err.message : JSON.stringify(err);
+        this.setState({ error });
       });
   };
 
@@ -318,7 +317,7 @@ class SignUp extends Component {
         <p>
           Please enter the verification code below to confirm your email
           address. If you are unable to find the email from
-          <strong>'otp@singularitynet.io'</strong> in your inbox, make sure to
+          <strong> 'otp@singularitynet.io'</strong> in your inbox, make sure to
           check the spam folder. The code will be valid only for 5 minutes.
         </p>
         <TextField
